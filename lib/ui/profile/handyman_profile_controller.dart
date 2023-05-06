@@ -1,19 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
 
 class HandymanProfileController extends GetxController {
-  Rx<String> availableStatus= 'You are Online'.obs;
+  Rx<String> availableStatus = 'You are Online'.obs;
   Rx<bool> isOnline = true.obs;
   Rx<Color> availabitityColor = Colors.green.withOpacity(0.2).obs;
   Rx<Color> availabitityTextColor = Colors.green.obs;
 
-  Rx<bool> isNotification = Rx<bool>(GetStorage().read('isNotification') ?? false);
-
+  Rx<bool> isNotification = Rx<bool>(GetStorage().read('theme') ?? false);
 
   void changeStatus() {
     if (availableStatus.value == 'You are Online') {
@@ -29,16 +24,15 @@ class HandymanProfileController extends GetxController {
     }
   }
 
-
-
-
   void changeNotification() {
     if (isNotification.value) {
       isNotification.value = false;
-      GetStorage().write('isNotification', false);
+      GetStorage().write('theme', false);
+      Get.changeThemeMode(ThemeMode.light);
     } else {
       isNotification.value = true;
-      GetStorage().write('isNotification', true);
+      Get.changeThemeMode(ThemeMode.dark);
+      GetStorage().write('theme', true);
     }
   }
 }

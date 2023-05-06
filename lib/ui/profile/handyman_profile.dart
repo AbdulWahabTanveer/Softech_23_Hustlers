@@ -5,10 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/user_model.dart';
 import 'package:softech_hustlers/services/user_service.dart';
-import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
 import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
-import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import 'handyman_profile_controller.dart';
 
@@ -54,7 +52,7 @@ class HandyManProfile extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() =>  HandymanProfileEdit());
+                            Get.to(() => HandymanProfileEdit());
                           },
                           child: Stack(
                             clipBehavior: Clip.none,
@@ -66,7 +64,7 @@ class HandyManProfile extends StatelessWidget {
                                   radius: 60.r,
                                   backgroundImage: NetworkImage(
                                     UserService.userModel.profileImgUrl ??
-                                    'https://picsum.photos/200/300',
+                                        'https://picsum.photos/200/300',
                                   ),
                                 ),
                               ),
@@ -74,9 +72,9 @@ class HandyManProfile extends StatelessWidget {
                                   right: 5.w,
                                   bottom: 5.h,
                                   child: const FaIcon(
-                                FontAwesomeIcons.penToSquare,
-                                color: Colors.white,
-                              ))
+                                    FontAwesomeIcons.penToSquare,
+                                    color: Colors.white,
+                                  ))
                             ],
                           ),
                         ),
@@ -242,7 +240,24 @@ class HandyManProfile extends StatelessWidget {
                         'App Theme',
                         style: black16w700,
                       ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                      trailing: SizedBox(
+                        width: 60.w,
+                        child: Obx(() {
+                          return FlutterSwitch(
+                            width: 60.w,
+                            height: 30.h,
+                            valueFontSize: 12.sp,
+                            toggleSize: 12.sp,
+                            value: controller.isNotification.value,
+                            activeColor: Theme.of(context).primaryColor,
+                            padding: 8.w,
+                            showOnOff: true,
+                            onToggle: (bool value) {
+                              controller.changeNotification();
+                            },
+                          );
+                        }),
+                      ),
                     ),
                     Divider(
                       color: Colors.grey.shade300,
@@ -266,32 +281,14 @@ class HandyManProfile extends StatelessWidget {
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
-                    Divider(
-                      color: Colors.grey.shade300,
-                    ),
+
+
                     ListTile(
-                      leading: const FaIcon(FontAwesomeIcons.cloudArrowDown),
+                      leading:
+                          const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
                       title: Text(
-                        'Optional Notification',
+                        'Logout',
                         style: black16w700,
-                      ),
-                      trailing: SizedBox(
-                        width: 60.w,
-                        child: Obx(() {
-                          return FlutterSwitch(
-                            width: 60.w,
-                            height: 30.h,
-                            valueFontSize: 12.sp,
-                            toggleSize: 12.sp,
-                            value: controller.isNotification.value,
-                            activeColor: Theme.of(context).primaryColor,
-                            padding: 8.w,
-                            showOnOff: true,
-                            onToggle: (bool value) {
-                              controller.changeNotification();
-                            },
-                          );
-                        }),
                       ),
                     ),
                     Divider(

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:softech_hustlers/enum/account_type.dart';
 import 'package:softech_hustlers/services/user_service.dart';
 import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
+import 'package:softech_hustlers/ui/dahsboard/handymandashboard.dart';
+import 'package:softech_hustlers/ui/dahsboard/userDashBoard.dart';
 import 'package:softech_hustlers/ui/home/home_view.dart';
 import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 
@@ -23,13 +25,11 @@ class StartUpController extends GetxController{
     else{
       await UserService.initialize();
       if(UserService.userModel.accountType==AccountType.customer){
-        Get.off(()=>const HomeScreen());
+        Get.off(()=>const HandyManDashBoard());
       }
       else{
-        Get.off(()=>const HomeScreen());
+        Get.off(()=>const UserDashBoard());
       }
-
-      Get.off(()=>HandyManProfile());
     }
   }
 }
