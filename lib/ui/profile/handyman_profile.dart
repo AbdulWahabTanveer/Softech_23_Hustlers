@@ -297,6 +297,17 @@ class HandyManProfile extends StatelessWidget {
                     Divider(
                       color: Colors.grey.shade300,
                     ),
+                    ListTile(
+                      leading: const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
+                      title: Text(
+                        'Logout',
+                        style: black16w700,
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+
                   ],
                 ),
               ),
