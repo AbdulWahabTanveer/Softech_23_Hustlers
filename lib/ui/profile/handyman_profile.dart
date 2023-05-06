@@ -43,7 +43,9 @@ class HandyManProfile extends StatelessWidget {
                     width: double.infinity,
                     height: 300.h,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -86,7 +88,7 @@ class HandyManProfile extends StatelessWidget {
                             color: Colors.grey.shade300,
                           ),
                           borderRadius:
-                              BorderRadius.all(Radius.circular(20.sp)),
+                          BorderRadius.all(Radius.circular(20.sp)),
                         ),
                         child: Center(
                           child: Row(
@@ -200,13 +202,81 @@ class HandyManProfile extends StatelessWidget {
               20.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.globe),
-                  title: Text(
-                    'App Language',
-                    style: black16w700,
-                  ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: FaIcon(FontAwesomeIcons.globe),
+                      title: Text(
+                        'App Language',
+                        style: black16w700,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+                    ListTile(
+                      leading: const FaIcon(FontAwesomeIcons.sun),
+                      title: Text(
+                        'App Theme',
+                        style: black16w700,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+                    ListTile(
+                      leading: FaIcon(FontAwesomeIcons.lock),
+                      title: Text(
+                        'Change password',
+                        style: black16w700,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+                    ListTile(
+                      leading: FaIcon(FontAwesomeIcons.circleInfo),
+                      title: Text(
+                        'About',
+                        style: black16w700,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+                    ListTile(
+                      leading: const FaIcon(FontAwesomeIcons.cloudArrowDown),
+                      title: Text(
+                        'Optional Notification',
+                        style: black16w700,
+                      ),
+                      trailing: SizedBox(
+                        width: 60.w,
+                        child: Obx(() {
+                          return FlutterSwitch(
+                            
+                            width: 60.w,
+                            height: 30.h,
+                            valueFontSize: 12.sp,
+                            toggleSize: 12.sp,
+                            value: controller.isNotification.value,
+                            padding: 8.w,
+                            showOnOff: true,
+                            onToggle: (bool value) {
+                              controller.changeNotification();
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+                  ],
                 ),
               ),
             ],

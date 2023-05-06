@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
               20.verticalSpace,
               CustomTextField(controller: loginController.loginPassCont, validator: loginController.emailValidation, label: "Password", suffix: Icon(Fontisto.locked, size: 25.h,),hint: "Enter Password"),
               40.verticalSpace,
-              BusyButton(title: "Sign In", isBusy: loginController.)
+              // BusyButton(title: "Sign In", isBusy: loginController.)
               
 
 
