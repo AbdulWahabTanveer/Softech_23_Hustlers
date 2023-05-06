@@ -21,9 +21,13 @@ class BusyButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: double.infinity,
-        height: 40.h,
+        height: 50.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(8.r),
+          color: Theme.of(context).primaryColor
+        ),
+        child: Center(
+          child: Text(title, style: TextStyle(color: Colors.white, fontSize: 18.sp,fontWeight: FontWeight.bold),),
         ),
       ),
     );

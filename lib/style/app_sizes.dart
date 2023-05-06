@@ -1,1 +1,1 @@
-const double kpHorizontalPadding = 20;
+const double kpHorizontalPadding = 16;

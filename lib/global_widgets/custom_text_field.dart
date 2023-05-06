@@ -12,19 +12,38 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
-        isDense: true,
-        labelText: label,
-        hintText: hint,
-        // suffix: suffix,
-        suffixIcon: suffix,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r)
-        )
-      ),
-      controller: controller,
+
+    OutlineInputBorder border = OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.r),
+        borderSide: const BorderSide(width: 0,color: Colors.transparent )
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(label, style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+        5.verticalSpace,
+        TextFormField(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
+            isDense: false,
+            fillColor:
+            true ? Theme.of(context).primaryColor.withOpacity(0.05) :
+            Colors.grey.withOpacity(0.1),
+            filled: true,
+            // labelText: label,
+            hintText: hint,
+            // suffix: suffix,
+            suffixIcon: suffix,
+            border: border ,
+            focusedBorder: border,
+            enabledBorder: border,
+
+          ),
+          controller: controller,
+        ),
+      ],
     );
   }
 }
