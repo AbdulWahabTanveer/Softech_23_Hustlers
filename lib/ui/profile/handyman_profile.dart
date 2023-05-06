@@ -54,7 +54,7 @@ class HandyManProfile extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() =>  HandymanProfileEdit());
+                            Get.to(() => HandymanProfileEdit());
                           },
                           child: Stack(
                             clipBehavior: Clip.none,
@@ -66,7 +66,7 @@ class HandyManProfile extends StatelessWidget {
                                   radius: 60.r,
                                   backgroundImage: NetworkImage(
                                     UserService.userModel.profileImgUrl ??
-                                    'https://picsum.photos/200/300',
+                                        'https://picsum.photos/200/300',
                                   ),
                                 ),
                               ),
@@ -74,9 +74,9 @@ class HandyManProfile extends StatelessWidget {
                                   right: 5.w,
                                   bottom: 5.h,
                                   child: const FaIcon(
-                                FontAwesomeIcons.penToSquare,
-                                color: Colors.white,
-                              ))
+                                    FontAwesomeIcons.penToSquare,
+                                    color: Colors.white,
+                                  ))
                             ],
                           ),
                         ),
@@ -242,39 +242,6 @@ class HandyManProfile extends StatelessWidget {
                         'App Theme',
                         style: black16w700,
                       ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                    ),
-                    Divider(
-                      color: Colors.grey.shade300,
-                    ),
-                    ListTile(
-                      leading: FaIcon(FontAwesomeIcons.lock),
-                      title: Text(
-                        'Change password',
-                        style: black16w700,
-                      ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                    ),
-                    Divider(
-                      color: Colors.grey.shade300,
-                    ),
-                    ListTile(
-                      leading: FaIcon(FontAwesomeIcons.circleInfo),
-                      title: Text(
-                        'About',
-                        style: black16w700,
-                      ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                    ),
-                    Divider(
-                      color: Colors.grey.shade300,
-                    ),
-                    ListTile(
-                      leading: const FaIcon(FontAwesomeIcons.cloudArrowDown),
-                      title: Text(
-                        'Optional Notification',
-                        style: black16w700,
-                      ),
                       trailing: SizedBox(
                         width: 60.w,
                         child: Obx(() {
@@ -298,6 +265,27 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
+                      leading: FaIcon(FontAwesomeIcons.lock),
+                      title: Text(
+                        'Change password',
+                        style: black16w700,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    Divider(
+                      color: Colors.grey.shade300,
+                    ),
+                    ListTile(
+                      leading: FaIcon(FontAwesomeIcons.circleInfo),
+                      title: Text(
+                        'About',
+                        style: black16w700,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+
+
+                    ListTile(
                       onTap: () async{
                        await FirebaseAuth.instance.signOut();
                        Get.offAll(()=>LoginScreen());
@@ -311,7 +299,6 @@ class HandyManProfile extends StatelessWidget {
                     Divider(
                       color: Colors.grey.shade300,
                     ),
-
                   ],
                 ),
               ),
