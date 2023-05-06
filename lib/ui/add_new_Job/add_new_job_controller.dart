@@ -84,9 +84,9 @@ class AddNewJobController extends GetxController{
         var image=jobImages[i];
         var imageName=Uuid().v1();
         var storageRef=FirebaseStorage.instance.ref().child("jobs/$imageName");
-         await storageRef.putFile(File(image.path));
-          var url=await storageRef.getDownloadURL();
-          images.add(url);
+        await storageRef.putFile(File(image.path));
+        var url=await storageRef.getDownloadURL();
+        images.add(url);
       }
       selectedDate=selectedDate.copyWith(hour: selectedTime.hour,minute: selectedTime.minute);
       var job=JobModel(
@@ -125,7 +125,7 @@ class AddNewJobController extends GetxController{
       String? administrativeArea = placeMark.administrativeArea;
       String? postalCode = placeMark.postalCode;
       String? country = placeMark.country;
-       address = "$name, $subLocality, $locality, $administrativeArea $postalCode, $country";
+      address = "$name, $subLocality, $locality, $administrativeArea $postalCode, $country";
       location.text = address;
     }
   }
