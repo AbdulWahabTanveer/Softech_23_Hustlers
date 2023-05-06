@@ -10,6 +10,7 @@ import 'package:softech_hustlers/ui/home/home_view.dart';
 import 'package:softech_hustlers/ui/my_job/my_job.dart';
 import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/userhome/userhome.dart';
+import 'package:softech_hustlers/ui/statrup/startup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: MyJob(),
+      child: StartUpScreen(),
     );
   }
 }
