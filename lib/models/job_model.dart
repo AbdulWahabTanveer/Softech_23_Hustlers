@@ -12,7 +12,7 @@ class JobModel{
     required this.date,
     required this.images,
     required this.lat,
-    required this.long,
+    required this.lng,
     required this.uid,
     required this.id,
     required this.category,
@@ -26,8 +26,8 @@ class JobModel{
   List<dynamic> images;
   String id;
   String uid;
-  String lat;
-  String long;
+  double lat;
+  double lng;
   String category;
   String status;
 
@@ -40,7 +40,7 @@ class JobModel{
       images:  json['images'],
       uid: json["uid"],
       lat: json["lat"],
-      long: json["long"],
+      lng: json["lng"],
       category: json["category"] ??"",
       status: json["status"]??"", id: json["id"],
     );
@@ -55,7 +55,7 @@ class JobModel{
       "images": this.images,
       "uid": this.uid,
       "lat": this.lat,
-      "long": this.long,
+      "lng": this.lng,
       "category": this.category,
       "status": this.status,
       "id": this.id,

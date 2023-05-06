@@ -94,9 +94,9 @@ class AddNewJobController extends GetxController{
         description: jobDescription.text,
         images: images,
         price: double.parse(price.text),
-        title: jobTitle.text, lat: '0', long: '0', uid: FirebaseAuth.instance.currentUser!.uid,
-        status: "pending",
-        category: "pending", id: Uuid().v1(),
+        title: jobTitle.text, lat: latitude, lng: longitude, uid: FirebaseAuth.instance.currentUser!.uid,
+        status: "Pending",
+        category: selectedCategory.string, id: Uuid().v1(),
       );
       await FirebaseFirestore.instance.collection("jobs").doc(job.id).set(job.toJson());
       isBusy.value=false;

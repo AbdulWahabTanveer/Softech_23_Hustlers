@@ -1,14 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../style/colors.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
-
+  const DetailScreen(this.job,{Key? key}) : super(key: key);
+  final JobModel job;
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
@@ -18,12 +19,11 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("Hhh");
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: Padding(
             padding: EdgeInsets.all(10.h),
-            child: BusyButton(
+            child: const BusyButton(
               title: 'Book Now',
               isBusy: false,
             ),
@@ -108,27 +108,16 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Cleaning  >  ",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "Laundary",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
+                                Text(
+                                  widget.job.category,
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500),
                                 ),
                                 10.verticalSpace,
                                 Text(
-                                  "Dry Cleaning Service",
+                                  widget.job.title,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20.sp,
