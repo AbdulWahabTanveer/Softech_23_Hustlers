@@ -42,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                   20.verticalSpace,
                   CustomTextField(controller: signUpController.loginEmailCont, validator: signUpController.emailValidation, label: "Email", suffix: Icon(Icons.email, size: 25.h,), hint: "Enter email here",),
                   20.verticalSpace,
-                  CustomTextField(controller: signUpController.loginPassCont, validator: signUpController.passValidation, label: "Password", suffix: Icon(Icons.lock, size: 25.h,),hint: "Enter password here", hideText: true,),
+                  CustomTextField(controller: signUpController.loginPassCont, validator: signUpController.passValidation, label: "Password", suffix: Icon(Icons.lock, size: 25.h,),hint: "Enter password here",),
                   20.verticalSpace,
                   Obx(() => CustomDropdownSelect(dropdownItems: const ['Handyman','Customer'], onChange: (String v){
                     signUpController.selectedRole.value = v;
