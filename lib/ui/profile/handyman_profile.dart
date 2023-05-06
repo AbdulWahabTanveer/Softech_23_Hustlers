@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
+import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import 'handyman_profile_controller.dart';
@@ -25,7 +26,7 @@ class HandyManProfile extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.edit),
+              icon: const FaIcon(FontAwesomeIcons.info),
             ),
             IconButton(
               onPressed: () {},
@@ -43,21 +44,36 @@ class HandyManProfile extends StatelessWidget {
                     width: double.infinity,
                     height: 300.h,
                     decoration: BoxDecoration(
-                      color: Theme
-                          .of(context)
-                          .primaryColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 62.r,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            radius: 60.r,
-                            backgroundImage: const NetworkImage(
-                              'https://picsum.photos/200/300',
-                            ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(() =>  HandymanProfileEdit());
+                          },
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              CircleAvatar(
+                                radius: 62.r,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 60.r,
+                                  backgroundImage: const NetworkImage(
+                                    'https://picsum.photos/200/300',
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  right: 5.w,
+                                  bottom: 5.h,
+                                  child: FaIcon(
+                                FontAwesomeIcons.penToSquare,
+                                color: Colors.white,
+                              ))
+                            ],
                           ),
                         ),
                         20.verticalSpace,
@@ -88,7 +104,7 @@ class HandyManProfile extends StatelessWidget {
                             color: Colors.grey.shade300,
                           ),
                           borderRadius:
-                          BorderRadius.all(Radius.circular(20.sp)),
+                              BorderRadius.all(Radius.circular(20.sp)),
                         ),
                         child: Center(
                           child: Row(
@@ -189,6 +205,7 @@ class HandyManProfile extends StatelessWidget {
                               value: controller.isOnline.value,
                               padding: 8.w,
                               showOnOff: true,
+                              activeColor: Theme.of(context).primaryColor,
                               onToggle: (bool value) {
                                 controller.changeStatus();
                               },
@@ -258,12 +275,12 @@ class HandyManProfile extends StatelessWidget {
                         width: 60.w,
                         child: Obx(() {
                           return FlutterSwitch(
-                            
                             width: 60.w,
                             height: 30.h,
                             valueFontSize: 12.sp,
                             toggleSize: 12.sp,
                             value: controller.isNotification.value,
+                            activeColor: Theme.of(context).primaryColor,
                             padding: 8.w,
                             showOnOff: true,
                             onToggle: (bool value) {
