@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 import 'package:softech_hustlers/ui/userhome/userhome.dart';
+import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 import '../my_post/my_post.dart';
 
@@ -25,38 +26,32 @@ class _UserDashBoardState extends State<UserDashBoard> {
           HandyManProfile(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.15),
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        iconSize: 30,
-        currentIndex: currentIndex,
-        onTap: (index) {
-          currentIndex = index;
-          setState(() {});
+      bottomNavigationBar: WaterDropNavBar(
+        backgroundColor: Colors.white,
+        waterDropColor: Theme.of(context).primaryColor,
+        onItemSelected: (index) {
+          setState(() {
+            currentIndex = index;
+          });
         },
-        selectedItemColor: Theme.of(context).primaryColor,
-        elevation: 0,
-        items: [
-          BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.15),
-              icon: Icon(Icons.home_filled),
-              label: ''),
-          BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.15),
-              icon: Icon(Icons.my_library_books_outlined),
-              label: ''),
-          BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.15),
-              icon: Icon(Icons.chat_outlined),
-              label: ''),
-          BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.15),
-              icon: Icon(
-                Icons.person,
-              ),
-              label: ''),
+        selectedIndex: currentIndex,
+        bottomPadding: 10,
+        iconSize: 30,
+        barItems: [
+          BarItem(
+            filledIcon: Icons.home,
+            outlinedIcon: Icons.home_outlined,
+          ),
+          BarItem(
+              filledIcon: Icons.my_library_books,
+              outlinedIcon: Icons.my_library_books_outlined),
+          BarItem(
+            filledIcon: Icons.chat,
+            outlinedIcon: Icons.chat_outlined,
+          ),
+          BarItem(
+              filledIcon: Icons.person,
+              outlinedIcon: Icons.perm_identity_sharp),
         ],
       ),
     );
