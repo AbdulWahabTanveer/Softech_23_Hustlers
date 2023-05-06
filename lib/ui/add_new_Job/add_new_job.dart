@@ -76,7 +76,7 @@ class AddNewJob extends StatelessWidget {
                 suffix: CustomSuffix(FontAwesome.clock_o),
                 isDisabled: true,
                 onTap: (){
-                  
+
                 },
               ),
               10.verticalSpace,
@@ -95,6 +95,8 @@ class AddNewJob extends StatelessWidget {
                   controller.pickImage();
                 },
               ),
+              10.verticalSpace,
+              
             ],
           ),
         ),
