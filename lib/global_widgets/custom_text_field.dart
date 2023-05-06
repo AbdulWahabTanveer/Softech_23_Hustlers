@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({Key? key, required this.controller, required this.validator, required this.label, required this.suffix, required this.hint}) : super(key: key);
@@ -23,14 +22,14 @@ class CustomTextField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(label, style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
-        5.verticalSpace,
+        8.verticalSpace,
         TextFormField(
+          validator: validator,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
             isDense: false,
             fillColor:
-            true ? Theme.of(context).primaryColor.withOpacity(0.05) :
-            Colors.grey.withOpacity(0.1),
+            Theme.of(context).primaryColor.withOpacity(0.05) ,
             filled: true,
             // labelText: label,
             hintText: hint,
@@ -39,6 +38,7 @@ class CustomTextField extends StatelessWidget {
             border: border ,
             focusedBorder: border,
             enabledBorder: border,
+            errorBorder: border,
 
           ),
           controller: controller,
