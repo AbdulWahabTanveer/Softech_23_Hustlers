@@ -32,3 +32,5 @@ google-services.json
 *.dill
 .flutter-plugins
 .flutter-plugins-dependencies
+.flutter-plugins
+.flutter-plugins-dependencies
