@@ -12,6 +12,7 @@ local.properties
 captures/
 .externalNativeBuild/
 .cxx/
+.dart_tool/
 *.apk
 output.json
 
@@ -28,3 +29,12 @@ google-services.json
 
 # Android Profiling
 *.hprof
+.dart_tool/flutter_build/0817a0e73bbbb59476e75befbef72fa8/.filecache
+*.dill
+.dart_tool/flutter_build/0817a0e73bbbb59476e75befbef72fa8/.filecache
+.dart_tool/flutter_build/0817a0e73bbbb59476e75befbef72fa8/app.dill
+*.dill
+.dart_tool/flutter_build/0817a0e73bbbb59476e75befbef72fa8/app.dill
+.dart_tool/flutter_build/0817a0e73bbbb59476e75befbef72fa8/.filecache
+.flutter-plugins
+.flutter-plugins-dependencies
