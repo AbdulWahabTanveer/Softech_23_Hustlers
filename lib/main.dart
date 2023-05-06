@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:softech_hustlers/Demo.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
-import 'package:softech_hustlers/ui/authentication/login_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
+import 'package:softech_hustlers/ui/home/home_view.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(392.727272, 825.4545),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context , child) {
+      builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
@@ -32,8 +30,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: HandyManProfile(),
+      child: HomeScreen(),
     );
-  }}
-
-
+  }
+}
