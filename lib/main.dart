@@ -5,10 +5,9 @@ import 'package:softech_hustlers/Demo.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/ui/authentication/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: HandyManProfile(),
+      child: LoginScreen(),
     );
   }}
 
