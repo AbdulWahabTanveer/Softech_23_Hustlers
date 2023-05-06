@@ -42,6 +42,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        Get.back();
         // Permissions are denied, next time you could try
         // requesting permissions again (this is also where
         // Android's shouldShowRequestPermissionRationale
@@ -52,6 +53,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     }
 
     if (permission == LocationPermission.deniedForever) {
+      Get.back();
       // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
@@ -75,14 +77,17 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return SafeArea(
       child: Scaffold(
         extendBody: true,
-        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        extendBodyBehindAppBar: true,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(5.0),
           child: FloatingActionButton(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            onPressed: () {
-              Get.back();
+            onPressed: () async {
+              Position p = await _determinePosition();
+              _controller!.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(p.latitude, p.longitude), zoom: 15)));
             },
             child: Container(
               height: 50.h,
@@ -92,9 +97,36 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 color: Colors.white,
               ),
               child: Icon(
-                Icons.arrow_back_ios_new,
+                Icons.location_searching_rounded,
                 color: Colors.black,
                 size: 30,
+              ),
+            ),
+          ),
+        ),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: FloatingActionButton(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              onPressed: () {
+                Get.back();
+              },
+              child: Container(
+                height: 50.h,
+                width: 50.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.black,
+                  size: 30,
+                ),
               ),
             ),
           ),
@@ -128,12 +160,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             title: "Select Current Location",
             isBusy: false,
             onPressed: () async {
-              List<Placemark> placemarks = await placemarkFromCoordinates(52.2165157, 6.9437819);
+            List<Placemark> placemarks = await placemarkFromCoordinates(52.2165157, 6.9437819);
               Map<String,dynamic> result={
+
                 "location": _initialcameraposition,
-                "address":placemarks[0]
+                "address": placemarks[0]
               };
-              Get.back(result:result);
+              Get.back(result: result);
             },
           ),
         ),
