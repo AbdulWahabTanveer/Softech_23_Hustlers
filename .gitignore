@@ -12,7 +12,7 @@ local.properties
 captures/
 .externalNativeBuild/
 .cxx/
-.dart_tool
+.dart_tool/
 *.apk
 output.json
 
