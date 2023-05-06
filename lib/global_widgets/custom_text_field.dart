@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({Key? key, required this.controller, required this.validator, required this.label, required this.suffix, required this.hint}) : super(key: key);
+  const CustomTextField({Key? key, required this.controller, required this.validator, required this.label, this.suffix, required this.hint}) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
   final String label;
-  final Icon suffix;
+  final Icon? suffix;
   final String hint;
 
   @override
