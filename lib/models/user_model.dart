@@ -12,6 +12,7 @@ class UserModel {
   final double? lng;
   final double? lat;
   final String? profileImgUrl;
+  final String? serviceCategory;
 
   const UserModel({
     required this.userName,
@@ -24,7 +25,8 @@ class UserModel {
     this.location,
     this.lng,
     this.lat,
-    this.profileImgUrl
+    this.profileImgUrl,
+    this.serviceCategory
   });
 
 
@@ -42,7 +44,8 @@ class UserModel {
       'phoneNo': phoneNo,
       'lng': lng,
       'lat': lat,
-      'profileImgUrl':profileImgUrl
+      'profileImgUrl':profileImgUrl,
+      'serviceCategory':serviceCategory,
     };
   }
 
@@ -58,7 +61,8 @@ class UserModel {
       location: map['location'],
       lat: map['lat'],
       lng: map['lng'],
-      profileImgUrl: map['profileImgUrl']
+      profileImgUrl: map['profileImgUrl'],
+      serviceCategory: map['serviceCategory']
     );
   }
 
