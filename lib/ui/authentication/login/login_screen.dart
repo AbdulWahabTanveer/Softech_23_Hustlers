@@ -30,45 +30,86 @@ class LoginScreen extends StatelessWidget {
                   100.verticalSpace,
                   Text('Hello Again!', style: ts20W800),
                   20.verticalSpace,
-                  Text('Welcome Back, You Have Been\n Missed For A Long Time', style: ts16W400,textAlign: TextAlign.center,),
+                  Text(
+                    'Welcome Back, You Have Been\n Missed For A Long Time',
+                    style: ts16W400,
+                    textAlign: TextAlign.center,
+                  ),
                   60.verticalSpace,
-                  CustomTextField(controller: loginController.loginEmailCont, validator: loginController.emailValidation, label: "Email", suffix: Icon(Icons.email, size: 25.h,), hint: "Enter email here",),
+                  CustomTextField(
+                    controller: loginController.loginEmailCont,
+                    validator: loginController.emailValidation,
+                    label: "Email",
+                    suffix: Icon(
+                      Icons.email,
+                      size: 25.h,
+                    ),
+                    hint: "Enter email here",
+                  ),
                   20.verticalSpace,
-                  CustomTextField(controller: loginController.loginPassCont, validator: loginController.passValidation, label: "Password", suffix: Icon(Icons.lock, size: 25.h,),hint: "Enter password here", hideText: true,),
+                  CustomTextField(
+                    controller: loginController.loginPassCont,
+                    validator: loginController.passValidation,
+                    label: "Password",
+                    suffix: Icon(
+                      Icons.lock,
+                      size: 25.h,
+                    ),
+                    hint: "Enter password here",
+                    hideText: true,
+                  ),
                   20.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
-                          onTap: (){
-                            Get.to(()=>ForgotPassScreen());
+                          onTap: () {
+                            Get.to(() => ForgotPassScreen());
                           },
-                          child: Text('Forgot password?', style: ts16W400.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),)),
+                          child: Text(
+                            'Forgot password?',
+                            style: ts16W400.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FontStyle.italic),
+                          )),
                     ],
                   ),
                   30.verticalSpace,
-                  Obx(() => BusyButton(title: "Sign In", isBusy: loginController.loading.value,onPressed: () async{
-                    if(_key.currentState!.validate()) {
-                     await loginController.signIn(loginController.loginEmailCont.text, loginController.loginPassCont.text);
-                    }
-                  },),),
+                  Obx(
+                    () => BusyButton(
+                      title: "Sign In",
+                      isBusy: loginController.loading.value,
+                      onPressed: () async {
+                        if (_key.currentState!.validate()) {
+                          await loginController.signIn(
+                              loginController.loginEmailCont.text,
+                              loginController.loginPassCont.text);
+                        }
+                      },
+                    ),
+                  ),
                   20.verticalSpace,
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Don't have an account? ", style: grey12W400.copyWith(fontSize: 16.sp),),
+                      Text(
+                        "Don't have an account? ",
+                        style: grey12W400.copyWith(fontSize: 16.sp),
+                      ),
                       InkWell(
-                          onTap: (){
-                            Get.to(()=>SignUpScreen());
+                          onTap: () {
+                            Get.to(() => SignUpScreen());
                           },
-                          child: Text('Sign Up', style: ts14w400.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w800, fontSize: 16.sp),))
+                          child: Text(
+                            'Sign Up',
+                            style: ts14w400.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16.sp),
+                          ))
                     ],
                   )
-
-
-
-
-
                 ],
               ),
             ),
@@ -78,4 +119,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
