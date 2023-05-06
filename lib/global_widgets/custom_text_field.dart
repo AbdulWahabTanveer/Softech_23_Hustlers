@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
-      {Key? key,
-      required this.controller,
-      required this.validator,
-      required this.label,
-      this.suffix,
-      required this.hint,
-      this.onTap,
-      this.isDisabled = false})
-      : super(key: key);
+  const CustomTextField({
+    Key? key,
+    required this.controller,
+    required this.validator,
+    required this.label,
+    this.suffix,
+    required this.hint,
+    this.onTap,
+    this.isDisabled = false,
+    this.hideText = false,
+  }) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
   final String label;
@@ -20,6 +20,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final Function? onTap;
   final bool isDisabled;
+  final bool hideText;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +74,8 @@ class CustomTextField extends StatelessWidget {
                 ),
               )
             : TextFormField(
+                obscureText: hideText,
+                validator: validator,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
                   isDense: false,
