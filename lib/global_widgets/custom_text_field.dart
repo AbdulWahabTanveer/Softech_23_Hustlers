@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -11,7 +12,7 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     this.onTap,
     this.isDisabled = false,
-    this.hideText = false,
+    this.hideText = false, this.keyboardType, this.inputFormat,
   }) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
@@ -21,7 +22,8 @@ class CustomTextField extends StatelessWidget {
   final Function? onTap;
   final bool isDisabled;
   final bool hideText;
-
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormat;
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder border = OutlineInputBorder(
@@ -47,8 +49,11 @@ class CustomTextField extends StatelessWidget {
                   }
                 },
                 child: TextFormField(
+                  validator: validator,
                   enabled: isDisabled,
                   readOnly: isDisabled,
+                  keyboardType: keyboardType,
+                  inputFormatters: inputFormat,
                   onTap: () {
                     if (onTap != null) {
                       onTap!();
@@ -76,6 +81,8 @@ class CustomTextField extends StatelessWidget {
             : TextFormField(
                 obscureText: hideText,
                 validator: validator,
+                keyboardType: keyboardType,
+                inputFormatters: inputFormat,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
                   isDense: false,

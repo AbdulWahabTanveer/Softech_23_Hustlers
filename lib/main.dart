@@ -1,20 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
-import 'package:softech_hustlers/ui/map/map.dart';
+import 'package:softech_hustlers/ui/my_job/my_job.dart';
 
 void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-
-    await Firebase.initializeApp();
-    print("dddd");
-  } catch (e) {
-    print(e);
-  }
-  print("dddd");
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -38,7 +30,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: GoogleMapScreen(),
+      child: HomeScreen(),
     );
   }
 }
