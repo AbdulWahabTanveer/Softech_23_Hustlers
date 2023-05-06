@@ -3,25 +3,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
+import 'package:softech_hustlers/ui/detail_customer/detail_customer_controller.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../style/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../models/user_model.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen(this.job, {Key? key}) : super(key: key);
+class DetailCustomerScreen extends StatefulWidget {
+  const DetailCustomerScreen(this.job, {Key? key}) : super(key: key);
   final JobModel job;
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<DetailCustomerScreen> createState() => _DetailCustomerScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
   int currentSlider = 0;
-
+final controller = Get.put(DetailCustomerController());
   Future<UserModel> getUser() async {
       var doc = await FirebaseFirestore.instance
           .collection("users")
@@ -35,13 +38,57 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: Padding(
+          bottomNavigationBar: widget.job.status=="Pending" ? Padding(
             padding: EdgeInsets.all(10.h),
-            child: const BusyButton(
-              title: 'Book Now',
+            child: BusyButton(
+              title: 'Mark as Complete',
               isBusy: false,
+              onPressed: () async {
+                bool isConfirmed=false;
+                // await FirebaseFirestore.instance.collection("jobs").doc(widget.job.id).update({"status":"completed"});
+                await Get.defaultDialog(
+                    title: "",
+                    content: Padding(
+                  padding: EdgeInsets.all(12.w),
+                  child: Column(
+                    children: [
+                      Text("Are you sure you want to mark this job as complete?",textAlign: TextAlign.center,),
+                      SizedBox(height: 20.h,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(onPressed: () async {
+                            // await FirebaseFirestore.instance.collection("jobs").doc(widget.job.id).update({"status":"completed"});
+                            isConfirmed=true;
+                            Get.back();
+                          }, child: Text("Yes")),
+                          ElevatedButton(onPressed: () {
+                            Get.back();
+                          }, child: Text("No")),
+                        ],
+                      )
+                    ],
+                  ),
+                ));
+                if(isConfirmed){
+                        await Get.defaultDialog(
+                          title: "Rate your handyman",
+                            titlePadding: EdgeInsets.all(12.w),
+                            content: Column(
+                          children: [
+                            RatingBarWidget(
+                              onRatingChanged: (val) {
+                                controller.ratingBar = val;
+                              },
+                              itemCount: 5,
+                              size: 30.w,
+                            ),
+                          ],
+                        ));
+                      }
+                    },
             ),
-          ),
+          ):null,
           body: Container(
             height: 1.sh,
             child: SingleChildScrollView(
@@ -175,11 +222,11 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: Container(
                           height: 50.h,
                           width: 50.h,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               Icons.favorite,
                               color: Colors.red,
@@ -194,15 +241,13 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: Container(
                           height: 50.h,
                           width: 50.h,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
                           ),
                           child: IconButton(
-                            onPressed: (){
-                              Get.back();
-                            },
-                            icon: Icon(
+                            onPressed: () => Get.back(),
+                            icon: const Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.black,
                               size: 30,
@@ -259,7 +304,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: kpHorizontalPadding),
                     child: Text(
-                      'About Provider',
+                      'Status',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 15.sp,
@@ -267,70 +312,16 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ),
                   5.verticalSpace,
-                  Container(
-                    padding: EdgeInsets.all(20.h),
-                    margin:
-                        EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.h),
-                      color: Theme.of(context).primaryColor.withOpacity(0.05),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: kpHorizontalPadding),
+                    child: Text(
+                      widget.job.status,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.sp,
+                      ),
                     ),
-                    child: FutureBuilder<UserModel>(future: getUser(), builder: (context, snapshot) {
-                      if(snapshot.hasError){
-                        return Text("Error something went wrong");
-                      }
-                      else if(snapshot.hasData){
-                            return Row(
-                              children: [
-                                Container(
-                                  height: 60.h,
-                                  width: 60.h,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: Image.network(
-                                                  snapshot.data!.profileImgUrl!)
-                                              .image,
-                                          fit: BoxFit.cover)),
-                                ),
-                                10.horizontalSpace,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      snapshot.data!.userName,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Container(
-                                      height: 20.h,
-                                      child: ListView.builder(
-                                          itemCount: 5,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) {
-                                            return Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 3.h),
-                                              child: Icon(
-                                                Icons.star_border_outlined,
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                size: 15.w,
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            );
-                          }else{
-                            return Center(child: CircularProgressIndicator());
-                      }
-                        }),
                   ),
                   20.verticalSpace,
                 ],

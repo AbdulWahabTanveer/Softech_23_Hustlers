@@ -10,6 +10,7 @@ import 'package:softech_hustlers/global_widgets/busy_button.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
 import 'package:softech_hustlers/ui/detail/detailscreen.dart';
+import 'package:softech_hustlers/ui/detail_customer/detail_customer_screen.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import '../../models/job_model.dart';
@@ -74,7 +75,7 @@ class MyJob extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Get.to(()=>DetailScreen(controller.myJobs[index],));
+                                  Get.to(()=>DetailCustomerScreen(controller.myJobs[index],));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(15.h),
@@ -112,14 +113,14 @@ class MyJob extends StatelessWidget {
                                             ),
                                             5.verticalSpace,
                                             Text(
-                                              "\$250",
+                                              "\$ ${controller.myJobs[index].price}",
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             10.verticalSpace,
                                             Text(
-                                              "13 may 2023",
+                                              "${controller.myJobs[index].date}",
                                               style: TextStyle(
                                                   fontSize: 10.sp,
                                                   fontWeight: FontWeight.w700),
