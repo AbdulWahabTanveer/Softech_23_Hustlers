@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "587329409951",
+    "project_id": "softec-2023",
+    "storage_bucket": "softec-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587329409951:android:e226816b78c85181b8a3aa",
+        "android_client_info": {
+          "package_name": "com.hustlers.softech23.softech_hustlers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587329409951-ffa8mnvatprlsr5rmbkkoh13q09avfor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7crEGXeNvoKJHqBSdBJCNI2PCVeKVOKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587329409951-ffa8mnvatprlsr5rmbkkoh13q09avfor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
