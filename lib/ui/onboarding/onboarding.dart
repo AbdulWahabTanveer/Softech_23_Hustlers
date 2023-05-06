@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:softech_hustlers/ui/authentication/login_screen.dart';
-
 import '../../style/colors.dart';
+import '../authentication/login/login_screen.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
