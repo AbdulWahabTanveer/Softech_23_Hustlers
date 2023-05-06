@@ -2,8 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
-import 'package:softech_hustlers/ui/statrup/startup.dart';
+import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 
 void main() async {
   try {
@@ -33,12 +34,16 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
+          darkTheme: AppTheme.darkTheme,
+          themeMode: GetStorage().read('theme') ?? false
+              ? ThemeMode.dark
+              : ThemeMode.light,
           // You can use the library anywhere in the app even in theme
           theme: AppTheme.lightTheme,
           home: child,
         );
       },
-      child: const StartUpScreen(),
+      child: LoginScreen(),
     );
   }
 }
