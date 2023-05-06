@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/Demo.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
-import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
-
-void main() {
+import 'package:softech_hustlers/ui/authentication/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -23,12 +25,14 @@ class MyApp extends StatelessWidget {
       builder: (context , child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Softech Hustlers',
+          title: 'First Method',
           // You can use the library anywhere in the app even in theme
           theme: AppTheme.lightTheme,
-          home: HandyManProfile(),
+          home: child,
         );
       },
+      child: LoginScreen(),
     );
-  }
-}
+  }}
+
+
