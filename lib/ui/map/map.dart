@@ -129,7 +129,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             isBusy: false,
             onPressed: () async {
               List<Placemark> placemarks = await placemarkFromCoordinates(52.2165157, 6.9437819);
-              Map result={
+              Map<String,dynamic> result={
                 "location": _initialcameraposition,
                 "address":placemarks[0]
               };

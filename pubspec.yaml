@@ -57,6 +57,7 @@ dependencies:
   geolocator: ^9.0.2
   shared_preferences:
   clippy_flutter:
+  firebase_storage: ^11.1.2
 
 dev_dependencies:
   flutter_test:

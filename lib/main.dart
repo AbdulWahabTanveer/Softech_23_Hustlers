@@ -1,12 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
+import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/home/home_view.dart';
+import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
+import 'package:softech_hustlers/ui/statrup/startup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
+  // await FirebaseAuth.instance.signOut();
+
   runApp(const MyApp());
 }
 
@@ -30,7 +37,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: HomeScreen(),
+      child: StartUpScreen(),
     );
   }
 }
