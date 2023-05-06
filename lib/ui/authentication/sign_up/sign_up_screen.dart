@@ -7,6 +7,7 @@ import 'package:softech_hustlers/global_widgets/custom_dropdown.dart';
 import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
+import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/authentication/sign_up/sign_up_controller.dart';
 
 
@@ -41,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                   20.verticalSpace,
                   CustomTextField(controller: signUpController.loginEmailCont, validator: signUpController.emailValidation, label: "Email", suffix: Icon(Icons.email, size: 25.h,), hint: "Enter email here",),
                   20.verticalSpace,
-                  CustomTextField(controller: signUpController.loginPassCont, validator: signUpController.passValidation, label: "Password", suffix: Icon(Icons.lock, size: 25.h,),hint: "Enter password here"),
+                  CustomTextField(controller: signUpController.loginPassCont, validator: signUpController.passValidation, label: "Password", suffix: Icon(Icons.lock, size: 25.h,),hint: "Enter password here", hideText: true,),
                   20.verticalSpace,
                   Obx(() => CustomDropdownSelect(dropdownItems: const ['Handyman','Customer'], onChange: (String v){
                     signUpController.selectedRole.value = v;
@@ -54,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
 
                   ),
 
-                  70.verticalSpace,
+                  40.verticalSpace,
                   Obx(() => BusyButton(title: "Sign Up", isBusy: signUpController.loading.value,onPressed: () async{
                     if(_key.currentState!.validate()) {
                      await signUpController.signUp(
@@ -69,7 +70,11 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text("Already have an account? ", style: grey12W400.copyWith(fontSize: 16.sp),),
-                      Text('Sign In', style: ts14w400.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w800, fontSize: 16.sp),)
+                      InkWell(
+                          onTap: (){
+                            Get.to(()=>LoginScreen());
+                          },
+                          child: Text('Sign In', style: ts14w400.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w800, fontSize: 16.sp),))
 
                     ],
                   ),

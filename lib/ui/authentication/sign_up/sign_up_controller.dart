@@ -73,7 +73,12 @@ class SignUpController extends GetxController{
           accountType: selectedRole.value.toLowerCase() == 'handyman'
               ? AccountType.handyman
               : AccountType.customer,
-          email: email);
+          email: email,
+        emailVerified: false,
+      );
+      await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+
 
       await Future.wait([
         FirebaseAuth.instance.currentUser!.updateDisplayName(nameCont.text),
@@ -83,9 +88,10 @@ class SignUpController extends GetxController{
         .set(userModel.toMap()),
       ]);
 
-    Get.to(()=>LoginScreen());
-    Get.snackbar("Success", 'Account Created', backgroundColor: Colors.green,colorText: Colors.white);
+      await FirebaseAuth.instance.signOut();
 
+    Get.to(()=>LoginScreen());
+    Get.snackbar("Success", 'Verification Link sent to Email', backgroundColor: Colors.green,colorText: Colors.white);
 
   }
     on FirebaseAuthException catch (e){
