@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/Demo.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
+import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,17 +20,15 @@ class MyApp extends StatelessWidget {
       designSize: const Size(392.727272, 825.4545),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context , child) {
-        return MaterialApp(
+      builder: (context, child) {
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'First Method',
+          title: 'Softech Hustlers',
           // You can use the library anywhere in the app even in theme
           theme: AppTheme.lightTheme,
-          home: child,
+          home: HandyManProfile(),
         );
       },
-      child: Dummy(),
     );
-  }}
-
-
+  }
+}
