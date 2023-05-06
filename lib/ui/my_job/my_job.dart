@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
+import 'package:softech_hustlers/ui/detail/detailscreen.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import '../../models/job_model.dart';
@@ -73,7 +74,7 @@ class MyJob extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  // Get.to(()=>JobDetails());
+                                  Get.to(()=>DetailScreen(controller.myJobs[index],));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(15.h),
@@ -131,6 +132,7 @@ class MyJob extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
@@ -142,14 +144,17 @@ class MyJob extends StatelessWidget {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 8.w, vertical: 5.h),
                                             child: Text(
-                                              "Status",
+                                              controller.myJobs[index].status,
                                               style: TextStyle(
                                                   fontSize: 12.sp,
                                                   fontWeight: FontWeight.w700),
                                             ),
                                           ),
+                                          10.verticalSpace,
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                controller.deleteJob(index);
+                                              },
                                               icon: FaIcon(
                                                 FontAwesomeIcons.trashCan,
                                                 size: 20,

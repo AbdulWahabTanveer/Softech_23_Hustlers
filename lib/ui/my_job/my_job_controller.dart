@@ -19,6 +19,6 @@ class MyJobController extends GetxController {
   }
 
   void deleteJob(int index) {
-    FirebaseFirestore.instance.collection('jobs').doc(myJobs[index].uid).delete();
+    FirebaseFirestore.instance.collection('jobs').doc(myJobs[index].id).delete();
   }
 }
