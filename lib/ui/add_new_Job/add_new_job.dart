@@ -96,7 +96,7 @@ class AddNewJob extends StatelessWidget {
                 },
               ),
               10.verticalSpace,
-              
+
             ],
           ),
         ),
