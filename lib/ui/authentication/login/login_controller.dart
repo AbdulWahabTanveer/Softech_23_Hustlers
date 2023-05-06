@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:softech_hustlers/enum/account_type.dart';
 import 'package:softech_hustlers/services/user_service.dart';
 import 'package:softech_hustlers/ui/dahsboard/handymandashboard.dart';
+import 'package:softech_hustlers/ui/dahsboard/userDashBoard.dart';
 import 'package:softech_hustlers/utils/global.dart';
 
 class SignInController extends GetxController{
@@ -50,7 +52,12 @@ class SignInController extends GetxController{
         Get.snackbar("Success", "Signing in",
             backgroundColor: Colors.green, colorText: Colors.white);
         await UserService.initialize();
-        Get.offAll(() => const HandyManDashBoard());
+        if(UserService.userModel.accountType==AccountType.handyman) {
+          Get.offAll(() => const HandyManDashBoard());
+        }
+        else {
+          Get.offAll(() => const UserDashBoard());
+        }
       }
     }
    on FirebaseAuthException catch (e){
