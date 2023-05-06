@@ -39,6 +39,12 @@ class SignInController extends GetxController{
    try{
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+      if(!FirebaseAuth.instance.currentUser!.emailVerified){
+        await FirebaseAuth.instance.signOut();
+        Get.snackbar("Request Failed", 'Email not verified', backgroundColor: Colors.red,colorText: Colors.white);
+      }
+
       if (FirebaseAuth.instance.currentUser != null) {
         Get.snackbar("Success", "Signing in",
             backgroundColor: Colors.green, colorText: Colors.white);

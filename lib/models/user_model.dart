@@ -5,12 +5,14 @@ class UserModel {
   final AccountType accountType;
   final String email;
   final int? cnic;
+  final bool emailVerified;
   final bool? verified;
 
   const UserModel({
     required this.userName,
     required this.accountType,
     required this.email,
+    required this.emailVerified,
     this.cnic,
     this.verified,
   });
@@ -25,6 +27,7 @@ class UserModel {
       'email': email,
       'cnic': cnic,
       'verified': verified,
+      'emailVerified': emailVerified,
     };
   }
 
@@ -35,6 +38,8 @@ class UserModel {
       email: map['email'] as String,
       cnic: map['cnic'] as int,
       verified: map['verified'] as bool,
+      emailVerified: map['emailVerified'] as bool,
+
     );
   }
 
