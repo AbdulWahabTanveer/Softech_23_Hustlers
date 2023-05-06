@@ -59,6 +59,7 @@ dependencies:
   clippy_flutter:
   firebase_storage: ^11.1.2
   syncfusion_flutter_charts: ^21.2.3
+  water_drop_nav_bar: ^2.2.0+5
 
 dev_dependencies:
   flutter_test:

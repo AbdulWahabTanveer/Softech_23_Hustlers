@@ -6,14 +6,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:uuid/uuid.dart';
+
+import '../map/map.dart';
 
 class AddNewJobController extends GetxController{
   var jobTitle=TextEditingController();
@@ -22,6 +29,9 @@ class AddNewJobController extends GetxController{
   var date=TextEditingController();
   var time=TextEditingController();
   var picture=TextEditingController();
+  var location=TextEditingController();
+  double latitude=0.0;
+  double longitude=0.0;
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
 
@@ -30,6 +40,10 @@ class AddNewJobController extends GetxController{
   final formKey = GlobalKey<FormState>();
 
   Rx<bool> isBusy =false.obs;
+
+  Rx<String?> selectedCategory = Rx<String?>(null);
+
+  String address="";
 
   Future<void> pickImage() async {
     var image=await ImagePicker.platform.getImage(source: ImageSource.gallery);
@@ -65,7 +79,7 @@ class AddNewJobController extends GetxController{
   Future<void> addJob() async {
     isBusy.value=true;
     List<String> images=[];
-    if(formKey.currentState!.validate()){
+    if(formKey.currentState!.validate()&&selectedCategory.value!=null){
       for(int i=0;i<jobImages.length;i++){
         var image=jobImages[i];
         var imageName=Uuid().v1();
@@ -87,9 +101,32 @@ class AddNewJobController extends GetxController{
       await FirebaseFirestore.instance.collection("jobs").doc(job.id).set(job.toJson());
       isBusy.value=false;
       Get.back();
-      Get.snackbar("Success", "Job added successfully");
-    }else{
+      Get.snackbar("Success", "Job added successfully",backgroundColor: Colors.white);
+    }else if(selectedCategory.value==null){
+      Get.snackbar("Unable to continue", "Please select category",backgroundColor: Colors.white);
       isBusy.value=false;
+    }else{
+      Get.snackbar("Error", "Please fill all fields",backgroundColor: Colors.white);
+      isBusy.value=false;
+    }
+  }
+
+  Future<void> ontapLocation() async {
+    var result = await Get.to(() => GoogleMapScreen());
+    if(result!=null) {
+      LatLng latlng = result["location"];
+      latitude = latlng.latitude;
+      longitude =
+          latlng.longitude;
+      Placemark? placeMark = result["address"];
+      String? name = placeMark!.name;
+      String? subLocality = placeMark.subLocality;
+      String? locality = placeMark.locality;
+      String? administrativeArea = placeMark.administrativeArea;
+      String? postalCode = placeMark.postalCode;
+      String? country = placeMark.country;
+       address = "$name, $subLocality, $locality, $administrativeArea $postalCode, $country";
+      location.text = address;
     }
   }
 

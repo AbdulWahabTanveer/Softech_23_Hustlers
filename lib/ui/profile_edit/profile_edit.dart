@@ -125,7 +125,7 @@ class HandymanProfileEdit extends StatelessWidget {
                          String? address = "$name, $subLocality, $locality, $administrativeArea $postalCode, $country";
 
 
-                         controller.location.text = address ?? '';
+                         controller.location.text = address;
 
                        }
                       },

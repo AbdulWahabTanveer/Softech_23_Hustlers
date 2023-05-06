@@ -5,13 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
 import 'package:softech_hustlers/global_widgets/custom_dropdown.dart';
 import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
+import 'package:softech_hustlers/ui/map/map.dart';
 import 'package:softech_hustlers/utils/CustomSuffix.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
 
+import '../../global_widgets/services_category_dropdown.dart';
 import 'add_new_job_controller.dart';
 
 class AddNewJob extends StatelessWidget {
@@ -112,6 +115,31 @@ class AddNewJob extends StatelessWidget {
                     },
                   ),
                   10.verticalSpace,
+                  ServiceCategoryDropdown(
+                    onChange: (String v) {
+                      controller.selectedCategory.value = v;
+                    },
+                    value: controller.selectedCategory.value,
+                  ),
+                  10.verticalSpace,
+                  CustomTextField(
+                    controller: controller.location,
+                    validator: (val) {
+                      if (val != null && val.isEmpty) {
+                        return "Please select location";
+                      } else {
+                        return null;
+                      }
+                    },
+                    label: "Location",
+                    hint: "Location",
+                    suffix: const CustomSuffix(FontAwesome.location_arrow),
+                    isDisabled: true,
+                    onTap: () async {
+                      controller.ontapLocation();
+                    },
+                  ),
+                  10.verticalSpace,
                   CustomTextField(
                     controller: controller.picture,
                     validator: (val) {
@@ -131,7 +159,6 @@ class AddNewJob extends StatelessWidget {
                       controller.pickImage();
                     },
                   ),
-                  // CustomDropdownSelect(dropdownItems: , onChange: onChange, label: label)
                   10.verticalSpace,
                   Obx(() {
                     return controller.jobImages.value.isEmpty

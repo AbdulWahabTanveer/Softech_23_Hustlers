@@ -13,14 +13,9 @@ class MyJobController extends GetxController {
     super.onInit();
   }
 
-  Future<void> getJobs() async {
-    await FirebaseFirestore.instance.collection('jobs').where('uid',isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((value) {
-      value.docs.forEach((element) {
-        myJobs.add(JobModel.fromJson(element.data()));
-      });
-    });
-    print(myJobs.length);
-    isJobsLoaded.value=true;
+  Stream<QuerySnapshot<Map<String, dynamic>>> getJobs() {
+    return FirebaseFirestore.instance.collection('jobs').where('uid',isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots();
+
   }
 
   void deleteJob(int index) {
