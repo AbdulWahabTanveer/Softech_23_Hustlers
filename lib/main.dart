@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/ui/detail/detailscreen.dart';
+import 'package:softech_hustlers/ui/my_post/my_post.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: DetailScreen(),
+      child: MyPost(),
     );
   }
 }
