@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(392.727272, 825.4545),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) {
+      builder: (context , child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Softech Hustlers',
