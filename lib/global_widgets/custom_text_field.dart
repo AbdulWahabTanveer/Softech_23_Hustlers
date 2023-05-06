@@ -11,7 +11,7 @@ class CustomTextField extends StatelessWidget {
       this.suffix,
       required this.hint,
       this.onTap,
-      this.isDisabled = false})
+      this.isDisabled = false, required bool hideText})
       : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
