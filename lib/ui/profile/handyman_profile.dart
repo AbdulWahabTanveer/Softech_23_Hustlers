@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
+import 'package:softech_hustlers/utils/common_image_view.dart';
+
+import 'handyman_profile_controller.dart';
 
 class HandyManProfile extends StatelessWidget {
-  const HandyManProfile({Key? key}) : super(key: key);
+  HandyManProfile({Key? key}) : super(key: key);
+  final controller = Get.put(HandymanProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +53,9 @@ class HandyManProfile extends StatelessWidget {
                           backgroundColor: Colors.white,
                           child: CircleAvatar(
                             radius: 60.r,
-                            backgroundImage:
-                                const AssetImage('assets/images/softech.png'),
+                            backgroundImage: const NetworkImage(
+                              'https://picsum.photos/200/300',
+                            ),
                           ),
                         ),
                         20.verticalSpace,
@@ -135,22 +142,73 @@ class HandyManProfile extends StatelessWidget {
                 ],
               ),
               80.verticalSpace,
-              Container(
-                  child: Column(children:  [
-                    const Text("Available Status"),
-                    const Text("You are online"),
-                    FlutterSwitch(
-                      width: 125.0,
-                      height: 55.0,
-                      valueFontSize: 25.0,
-                      toggleSize: 45.0,
-                      value: true,
-                      borderRadius: 30.0,
-                      padding: 8.0,
-                      showOnOff: true, onToggle: (bool value) {  },
-
-                    ),
-              ])),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: Obx(() {
+                  return Container(
+                      height: 75.h,
+                      decoration: BoxDecoration(
+                        color: controller.availabitityColor.value,
+                        border: Border.all(
+                          color: Colors.grey.shade300,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(20.sp)),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Available Status",
+                                    style: black16w700,
+                                  ),
+                                  Obx(() {
+                                    return Text(
+                                      controller.availableStatus.value,
+                                      style: black16w700.copyWith(
+                                          color: controller
+                                              .availabitityTextColor.value),
+                                    );
+                                  }),
+                                ]),
+                          ),
+                          const Spacer(),
+                          Obx(() {
+                            return FlutterSwitch(
+                              width: 60.w,
+                              height: 30.h,
+                              valueFontSize: 12.sp,
+                              toggleSize: 12.sp,
+                              value: controller.isOnline.value,
+                              padding: 8.w,
+                              showOnOff: true,
+                              onToggle: (bool value) {
+                                controller.changeStatus();
+                              },
+                            );
+                          }),
+                          15.horizontalSpace,
+                        ],
+                      ));
+                }),
+              ),
+              20.verticalSpace,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.globe),
+                  title: Text(
+                    'App Language',
+                    style: black16w700,
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                ),
+              ),
             ],
           ),
         ),
