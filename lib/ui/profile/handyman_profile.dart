@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -5,10 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/user_model.dart';
 import 'package:softech_hustlers/services/user_service.dart';
-import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
+import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
-import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import 'handyman_profile_controller.dart';
 
@@ -298,6 +298,10 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
+                      onTap: () async{
+                       await FirebaseAuth.instance.signOut();
+                       Get.offAll(()=>LoginScreen());
+                      },
                       leading: const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
                       title: Text(
                         'Logout',
