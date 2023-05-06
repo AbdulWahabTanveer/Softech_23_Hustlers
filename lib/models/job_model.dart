@@ -17,6 +17,7 @@ class JobModel{
     required this.id,
     required this.category,
     this.status="pending",
+    this.handymanId,
   });
 
   String title;
@@ -30,6 +31,7 @@ class JobModel{
   double lng;
   String category;
   String status;
+  String? handymanId;
 
   factory JobModel.fromJson(Map<String, dynamic> json) {
     return JobModel(
@@ -43,6 +45,7 @@ class JobModel{
       lng: json["lng"],
       category: json["category"] ??"",
       status: json["status"]??"", id: json["id"],
+      handymanId: json["handymanId"],
     );
   }
 
@@ -59,6 +62,7 @@ class JobModel{
       "category": this.category,
       "status": this.status,
       "id": this.id,
+      "handymanId": this.handymanId,
 
     };
   }
