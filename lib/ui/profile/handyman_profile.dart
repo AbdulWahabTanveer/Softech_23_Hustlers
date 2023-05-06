@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:softech_hustlers/models/user_model.dart';
+import 'package:softech_hustlers/services/user_service.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
 import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
@@ -16,6 +18,7 @@ class HandyManProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserModel userModel = UserService.userModel;
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -61,7 +64,8 @@ class HandyManProfile extends StatelessWidget {
                                 backgroundColor: Colors.white,
                                 child: CircleAvatar(
                                   radius: 60.r,
-                                  backgroundImage: const NetworkImage(
+                                  backgroundImage: NetworkImage(
+                                    UserService.userModel.profileImgUrl ??
                                     'https://picsum.photos/200/300',
                                   ),
                                 ),
@@ -69,7 +73,7 @@ class HandyManProfile extends StatelessWidget {
                               Positioned(
                                   right: 5.w,
                                   bottom: 5.h,
-                                  child: FaIcon(
+                                  child: const FaIcon(
                                 FontAwesomeIcons.penToSquare,
                                 color: Colors.white,
                               ))
@@ -78,12 +82,12 @@ class HandyManProfile extends StatelessWidget {
                         ),
                         20.verticalSpace,
                         Text(
-                          'Softech Hustlers',
+                          userModel.userName,
                           style: white18w700,
                         ),
                         10.verticalSpace,
                         Text(
-                          'Handyman@pornhub.com',
+                          userModel.email,
                           style: white18w500,
                         ),
                         20.verticalSpace,

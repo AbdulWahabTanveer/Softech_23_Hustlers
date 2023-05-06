@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.isDisabled = false,
     this.hideText = false,
+    this.hintStyle
   }) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final Function? onTap;
   final bool isDisabled;
+  final TextStyle? hintStyle;
   final bool hideText;
 
   @override
@@ -85,12 +87,15 @@ class CustomTextField extends StatelessWidget {
                   filled: true,
                   // labelText: label,
                   hintText: hint,
+                  hintStyle: hintStyle,
                   // suffix: suffix,
                   suffixIcon: suffix,
                   border: border,
                   focusedBorder: border,
                   enabledBorder: border,
                   disabledBorder: border,
+                  errorBorder: border,
+                  focusedErrorBorder: border,
                 ),
                 controller: controller,
               ),

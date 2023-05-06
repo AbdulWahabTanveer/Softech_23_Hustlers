@@ -1,20 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
-import 'package:softech_hustlers/ui/map/map.dart';
+import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
+import 'package:softech_hustlers/ui/home/home_view.dart';
+import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
+import 'package:softech_hustlers/ui/statrup/startup.dart';
 
 void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // await FirebaseAuth.instance.signOut();
 
-    await Firebase.initializeApp();
-    print("dddd");
-  } catch (e) {
-    print(e);
-  }
-  print("dddd");
   runApp(const MyApp());
 }
 
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: GoogleMapScreen(),
+      child: StartUpScreen(),
     );
   }
 }
