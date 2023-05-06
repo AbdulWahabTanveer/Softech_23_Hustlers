@@ -13,6 +13,7 @@ class SignUpController extends GetxController{
   TextEditingController loginPassCont = TextEditingController();
   TextEditingController nameCont = TextEditingController();
   Rx<String> selectedRole = ''.obs;
+  Rx<String?> selectedCategory = Rx<String?>(null);
 
 
 
@@ -75,6 +76,7 @@ class SignUpController extends GetxController{
               : AccountType.customer,
           email: email,
         emailVerified: false,
+        serviceCategory: selectedCategory.value
       );
       await FirebaseAuth.instance.currentUser!.sendEmailVerification();
 

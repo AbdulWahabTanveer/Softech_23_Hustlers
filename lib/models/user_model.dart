@@ -7,6 +7,12 @@ class UserModel {
   final int? cnic;
   final bool emailVerified;
   final bool? verified;
+  final String? phoneNo;
+  final String? location;
+  final double? lng;
+  final double? lat;
+  final String? profileImgUrl;
+  final String? serviceCategory;
 
   const UserModel({
     required this.userName,
@@ -15,6 +21,12 @@ class UserModel {
     required this.emailVerified,
     this.cnic,
     this.verified,
+    this.phoneNo,
+    this.location,
+    this.lng,
+    this.lat,
+    this.profileImgUrl,
+    this.serviceCategory
   });
 
 
@@ -28,6 +40,12 @@ class UserModel {
       'cnic': cnic,
       'verified': verified,
       'emailVerified': emailVerified,
+      'location': location,
+      'phoneNo': phoneNo,
+      'lng': lng,
+      'lat': lat,
+      'profileImgUrl':profileImgUrl,
+      'serviceCategory':serviceCategory,
     };
   }
 
@@ -36,10 +54,15 @@ class UserModel {
       userName: map['userName'] as String,
       accountType: AccountType.values.firstWhere((element) => element.name==map['accountType']),
       email: map['email'] as String,
-      cnic: map['cnic'] as int,
-      verified: map['verified'] as bool,
-      emailVerified: map['emailVerified'] as bool,
-
+      cnic: (int.tryParse(map['cnic'] ?? '0') ?? 0),
+      verified: (map['verified'] ?? false) as bool,
+      emailVerified: (map['emailVerified'] ?? false) as bool,
+      phoneNo: map['phoneNo'],
+      location: map['location'],
+      lat: map['lat'],
+      lng: map['lng'],
+      profileImgUrl: map['profileImgUrl'],
+      serviceCategory: map['serviceCategory']
     );
   }
 

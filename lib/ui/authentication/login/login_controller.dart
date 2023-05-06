@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:softech_hustlers/services/user_service.dart';
 import 'package:softech_hustlers/ui/authentication/sign_up/sign_up_screen.dart';
+import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 import 'package:softech_hustlers/utils/global.dart';
 
 class SignInController extends GetxController{
@@ -48,7 +50,8 @@ class SignInController extends GetxController{
       if (FirebaseAuth.instance.currentUser != null) {
         Get.snackbar("Success", "Signing in",
             backgroundColor: Colors.green, colorText: Colors.white);
-        Get.to(() => SignUpScreen());
+        await UserService.initialize();
+        Get.to(() => HandyManProfile());
       }
     }
    on FirebaseAuthException catch (e){

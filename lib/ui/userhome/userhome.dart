@@ -117,8 +117,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: 80.h,
-                              width: 80.h,
+                              height: 60.h,
+                              width: 60.h,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
@@ -127,7 +127,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                               "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg")
                                           .image)),
                             ),
-                            10.verticalSpace,
+                            10.horizontalSpace,
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

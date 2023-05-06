@@ -12,7 +12,9 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     this.onTap,
     this.isDisabled = false,
-    this.hideText = false, this.keyboardType, this.inputFormat,
+    this.hideText = false,
+    this.hintStyle,
+ this.keyboardType, this.inputFormat,
   }) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
@@ -21,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final Function? onTap;
   final bool isDisabled;
+  final TextStyle? hintStyle;
   final bool hideText;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormat;
@@ -92,12 +95,15 @@ class CustomTextField extends StatelessWidget {
                   filled: true,
                   // labelText: label,
                   hintText: hint,
+                  hintStyle: hintStyle,
                   // suffix: suffix,
                   suffixIcon: suffix,
                   border: border,
                   focusedBorder: border,
                   enabledBorder: border,
                   disabledBorder: border,
+                  errorBorder: border,
+                  focusedErrorBorder: border,
                 ),
                 controller: controller,
               ),
