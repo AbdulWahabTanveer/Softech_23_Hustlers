@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
-import 'package:softech_hustlers/ui/dahsboard/handymandashboard.dart';
+import 'package:softech_hustlers/ui/statrup/startup.dart';
 
 void main() async {
   try {
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: HandyManDashBoard(),
+      child: const StartUpScreen(),
     );
   }
 }
