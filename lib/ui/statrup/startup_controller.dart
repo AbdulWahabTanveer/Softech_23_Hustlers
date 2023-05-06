@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:softech_hustlers/enum/account_type.dart';
 import 'package:softech_hustlers/services/user_service.dart';
 import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
+import 'package:softech_hustlers/ui/home/home_view.dart';
 import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
-import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
 
 class StartUpController extends GetxController{
 
@@ -21,6 +22,13 @@ class StartUpController extends GetxController{
     }
     else{
       await UserService.initialize();
+      if(UserService.userModel.accountType==AccountType.customer){
+        Get.off(()=>const HomeScreen());
+      }
+      else{
+        Get.off(()=>const HomeScreen());
+      }
+
       Get.off(()=>HandyManProfile());
     }
   }

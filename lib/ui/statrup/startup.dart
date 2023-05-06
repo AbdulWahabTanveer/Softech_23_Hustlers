@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:softech_hustlers/ui/statrup/startup_controller.dart';
 
 class StartUpScreen extends StatefulWidget {
-  StartUpScreen({Key? key}) : super(key: key);
+  const StartUpScreen({Key? key}) : super(key: key);
 
   @override
   State<StartUpScreen> createState() => _StartUpScreenState();
