@@ -160,9 +160,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             title: "Select Current Location",
             isBusy: false,
             onPressed: () async {
-            List<Placemark> placemarks = await placemarkFromCoordinates(52.2165157, 6.9437819);
-              Map<String,dynamic> result={
-
+              List<Placemark> placemarks = await placemarkFromCoordinates(
+                  _initialcameraposition.latitude,
+                  _initialcameraposition.longitude);
+              Map<String, dynamic> result = {
                 "location": _initialcameraposition,
                 "address": placemarks[0]
               };
