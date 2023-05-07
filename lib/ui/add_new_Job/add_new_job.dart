@@ -16,6 +16,7 @@ import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import '../../global_widgets/services_category_dropdown.dart';
 import '../../style/app_theme.dart';
+import '../../style/textstyles.dart';
 import 'add_new_job_controller.dart';
 
 class AddNewJob extends StatelessWidget {
@@ -28,7 +29,7 @@ class AddNewJob extends StatelessWidget {
       appBar: AppBar(title: const Text("Add New Job"),
         backgroundColor: Get.theme.primaryColor ==
             AppTheme.darkTheme.primaryColor
-            ? Colors.black
+            ? appBackgroundColor
             : null,),
       body: SizedBox(
         height: 1.sh,
