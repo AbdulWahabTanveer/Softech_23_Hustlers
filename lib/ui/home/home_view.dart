@@ -228,6 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
+                                  homeController.currentJobs.clear();
                                   snapshot.data!.docs.forEach((element) {
                                     JobModel tempJob =
                                         JobModel.fromJson(element.data());
