@@ -67,7 +67,7 @@ class ProfileEditController extends GetxController {
         'lat': position?.latitude,
         'lng': position?.longitude,
         'profileImgUrl': downloadUrl,
-        ' servicesCategory': selectedCategory!.value
+        ' serviceCategory': selectedCategory!.value
       });
 
       UserService.userModel = UserModel(
