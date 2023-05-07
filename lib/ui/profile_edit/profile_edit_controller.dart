@@ -29,7 +29,7 @@ class ProfileEditController extends GetxController {
     }
     contactNumber.text = UserService.userModel.phoneNo?.toString() ?? '';
     location.text = UserService.userModel.location ?? '';
-    selectedCategory!.value = UserService.userModel.serviceCategory!;
+    selectedCategory!.value = UserService.userModel.serviceCategory ?? [];
 
     super.onInit();
   }
@@ -67,7 +67,7 @@ class ProfileEditController extends GetxController {
         'lat': position?.latitude,
         'lng': position?.longitude,
         'profileImgUrl': downloadUrl,
-        ' servicesCategories': selectedCategory!.value
+        ' servicesCategory': selectedCategory!.value
       });
 
       UserService.userModel = UserModel(
