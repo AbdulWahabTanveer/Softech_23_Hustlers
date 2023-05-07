@@ -11,6 +11,8 @@ import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/models/user_model.dart';
 
 import '../../style/app_sizes.dart';
+import '../../style/app_theme.dart';
+import '../../style/textstyles.dart';
 import '../../utils/common_image_view.dart';
 
 class UserViewBidScreen extends StatelessWidget {
@@ -21,9 +23,13 @@ class UserViewBidScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('View Bids'),
+        backgroundColor: Get.theme.primaryColor ==
+            AppTheme.darkTheme.primaryColor
+            ? appBackgroundColor
+            : null,
       ),
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('bids')
+          stream: FirebaseFirestore.instance.collection('bids').where("customerId",isEqualTo: FirebaseAuth.instance.currentUser!.uid)
               // .where('customerId',isEqualTo: FirebaseAuth.instance.currentUser!.uid)
               .snapshots().
           asyncMap((event) async{
@@ -31,6 +37,7 @@ class UserViewBidScreen extends StatelessWidget {
             print('into async map');
 
             print("docs length: ${event.docs.length}");
+
 
             List<String> handyManIds = event.docs.map((QueryDocumentSnapshot<Map<String,dynamic>> e) => ((e.data())['handymanId']).toString()).toSet().toList();
             print('handymen ids length: ${handyManIds.length}');
@@ -225,8 +232,10 @@ class _ViewUserBidTileState extends State<ViewUserBidTile> {
           });
 
           await FirebaseFirestore.instance.collection('jobs').doc(jobModel.id).update({
-            'handymanId': handyman.id
+            'handymanId': handyman.id,
+            'status':"InProgress"
           });
+
           setState(() {
             loading = false;
           });

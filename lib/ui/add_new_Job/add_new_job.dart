@@ -1,21 +1,23 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:chewie/chewie.dart';
+import 'package:chewie/src/center_play_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
-import 'package:softech_hustlers/global_widgets/custom_dropdown.dart';
 import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
-import 'package:softech_hustlers/ui/map/map.dart';
 import 'package:softech_hustlers/utils/CustomSuffix.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../global_widgets/services_category_dropdown.dart';
 import '../../style/app_theme.dart';
+import '../../style/textstyles.dart';
 import 'add_new_job_controller.dart';
 
 class AddNewJob extends StatelessWidget {
@@ -28,7 +30,7 @@ class AddNewJob extends StatelessWidget {
       appBar: AppBar(title: const Text("Add New Job"),
         backgroundColor: Get.theme.primaryColor ==
             AppTheme.darkTheme.primaryColor
-            ? Colors.black
+            ? appBackgroundColor
             : null,),
       body: SizedBox(
         height: 1.sh,
@@ -183,15 +185,22 @@ class AddNewJob extends StatelessWidget {
                                         right: 12.w, bottom: 10.h),
                                     child: Stack(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20.w),
-                                          child: CommonImageView(
-                                            file: File(controller
-                                                .jobImages[index].path),
-                                            width: 100.w,
-                                          ),
-                                        ),
+                                        controller.jobImages[index].paths[0]!
+                                                .contains("mp4")
+                                            ? VideouploadWidget(
+                                                url: File(controller
+                                                    .jobImages[index]
+                                                    .paths[0]!))
+                                            : ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.w),
+                                                child: CommonImageView(
+                                                  file: File(controller
+                                                      .jobImages[index]
+                                                      .paths[0]!),
+                                                  width: 100.w,
+                                                ),
+                                              ),
                                         Positioned(
                                             top: 10.h,
                                             right: 10.w,
@@ -236,5 +245,294 @@ class AddNewJob extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class VideouploadWidget extends StatefulWidget {
+  late File? url;
+
+  VideouploadWidget({Key? key, @required this.url}) : super(key: key);
+
+  @override
+  _VideouploadWidgetState createState() => _VideouploadWidgetState();
+}
+
+class _VideouploadWidgetState extends State<VideouploadWidget> {
+  VideoPlayerController? videoPlayerController;
+  Future<void>? _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    videoPlayerController = new VideoPlayerController.file(widget.url!);
+
+    _initializeVideoPlayerFuture =
+        videoPlayerController!.initialize().then((_) {
+      setState(() {});
+    });
+  } // This closing tag was missing
+
+  @override
+  void dispose() {
+    videoPlayerController!.dispose();
+    //    widget.videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(15),
+      child: Container(
+        height: 100.h,
+        width: 100.w,
+        child: FutureBuilder(
+          future: _initializeVideoPlayerFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Container(
+                color: Colors.black45,
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Chewie(
+                    key: new PageStorageKey(widget.url),
+                    controller: ChewieController(
+                      customControls: const customControl(),
+                      videoPlayerController: videoPlayerController!,
+                      aspectRatio: 1.1,
+                      showControls: true,
+
+                      // Prepare the video to be played and display the first frame
+                      autoInitialize: true,
+                      looping: false,
+                      autoPlay: false,
+                      // Errors can occur for example when trying to play a video
+                      // from a non-existent URL
+                      errorBuilder: (context, errorMessage) {
+                        return Center(
+                          child: Text(
+                            errorMessage,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class customControl extends StatefulWidget {
+  const customControl({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _customControlState();
+  }
+}
+
+class _customControlState extends State<customControl>
+    with SingleTickerProviderStateMixin {
+  late VideoPlayerValue _latestValue;
+  double? _latestVolume;
+  bool _hideStuff = true;
+  Timer? _hideTimer;
+  Timer? _initTimer;
+  late var _subtitlesPosition = const Duration();
+  bool _subtitleOn = false;
+  Timer? _showAfterExpandCollapseTimer;
+  bool _dragging = false;
+  bool _displayTapped = false;
+
+  final barHeight = 48.0;
+  final marginSize = 5.0;
+
+  late VideoPlayerController controller;
+  ChewieController? _chewieController;
+  // We know that _chewieController is set in didChangeDependencies
+  ChewieController get chewieController => _chewieController!;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_latestValue.hasError) {
+      return chewieController.errorBuilder?.call(
+            context,
+            chewieController.videoPlayerController.value.errorDescription!,
+          ) ??
+          const Center(
+            child: Icon(
+              Icons.error,
+              color: Colors.white,
+              size: 42,
+            ),
+          );
+    }
+
+    return MouseRegion(
+      onHover: (_) {
+        _cancelAndRestartTimer();
+      },
+      child: GestureDetector(
+        onTap: () => _cancelAndRestartTimer(),
+        child: AbsorbPointer(
+          absorbing: _hideStuff,
+          child: Column(
+            children: <Widget>[
+              if (_latestValue.isBuffering)
+                const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              else
+                _buildHitArea(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _dispose();
+    super.dispose();
+  }
+
+  void _dispose() {
+    controller.removeListener(_updateState);
+    _hideTimer?.cancel();
+    _initTimer?.cancel();
+    _showAfterExpandCollapseTimer?.cancel();
+  }
+
+  @override
+  void didChangeDependencies() {
+    final _oldController = _chewieController;
+    _chewieController = ChewieController.of(context);
+    controller = chewieController.videoPlayerController;
+
+    if (_oldController != chewieController) {
+      _dispose();
+      _initialize();
+    }
+
+    super.didChangeDependencies();
+  }
+
+  Expanded _buildHitArea() {
+    final bool isFinished = _latestValue.position >= _latestValue.duration;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          if (_latestValue.isPlaying) {
+            if (_displayTapped) {
+              setState(() {
+                _hideStuff = true;
+              });
+            } else {
+              _cancelAndRestartTimer();
+            }
+          } else {
+            _playPause();
+
+            setState(() {
+              _hideStuff = true;
+            });
+          }
+        },
+        child: Opacity(
+          opacity: 0.5,
+          child: CenterPlayButton(
+            backgroundColor: Theme.of(context).dialogBackgroundColor,
+            isFinished: isFinished,
+            isPlaying: controller.value.isPlaying,
+            show: !_latestValue.isPlaying && !_dragging,
+            onPressed: _playPause,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _cancelAndRestartTimer() {
+    _hideTimer?.cancel();
+    _startHideTimer();
+
+    setState(() {
+      _hideStuff = false;
+      _displayTapped = true;
+    });
+  }
+
+  Future<void> _initialize() async {
+    _subtitleOn = chewieController.subtitle?.isNotEmpty ?? false;
+    controller.addListener(_updateState);
+
+    _updateState();
+
+    if (controller.value.isPlaying || chewieController.autoPlay) {
+      _startHideTimer();
+    }
+
+    if (chewieController.showControlsOnInitialize) {
+      _initTimer = Timer(const Duration(milliseconds: 200), () {
+        setState(() {
+          _hideStuff = false;
+        });
+      });
+    }
+  }
+
+  void _playPause() {
+    final isFinished = _latestValue.position >= _latestValue.duration;
+
+    setState(() {
+      if (controller.value.isPlaying) {
+        _hideStuff = false;
+        _hideTimer?.cancel();
+        controller.pause();
+      } else {
+        _cancelAndRestartTimer();
+
+        if (!controller.value.isInitialized) {
+          controller.initialize().then((_) {
+            controller.play();
+          });
+        } else {
+          if (isFinished) {
+            controller.seekTo(const Duration());
+          }
+          controller.play();
+        }
+      }
+    });
+  }
+
+  void _startHideTimer() {
+    _hideTimer = Timer(const Duration(seconds: 3), () {
+      setState(() {
+        _hideStuff = true;
+      });
+    });
+  }
+
+  void _updateState() {
+    if (!mounted) return;
+    setState(() {
+      _latestValue = controller.value;
+      _subtitlesPosition = controller.value.position;
+    });
   }
 }

@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
 import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 import 'package:softech_hustlers/services/user_service.dart';
@@ -14,7 +12,10 @@ import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/ui/map/map.dart';
 import 'package:softech_hustlers/ui/profile_edit/profile_edit_controller.dart';
 
+import '../../global_widgets/services_category_dropdown.dart';
+import '../../style/app_theme.dart';
 import '../../style/textstyles.dart';
+import '../authentication/sign_up/sign_up_screen.dart';
 
 class HandymanProfileEdit extends StatelessWidget {
   HandymanProfileEdit({Key? key}) : super(key: key);
@@ -24,10 +25,15 @@ class HandymanProfileEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle hintStyle = TextStyle(color: Colors.grey, fontSize: 16.sp);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit profile"),
         elevation: 0,
+        backgroundColor:
+            Get.theme.primaryColor == AppTheme.darkTheme.primaryColor
+                ? appBackgroundColor
+                : null,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -43,7 +49,7 @@ class HandymanProfileEdit extends StatelessWidget {
                     20.verticalSpace,
                     Center(
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           controller.pickImage();
                         },
                         child: Stack(
@@ -52,8 +58,9 @@ class HandymanProfileEdit extends StatelessWidget {
                             Obx(() {
                               return CircleAvatar(
                                 radius: 60.r,
-                                backgroundImage:  NetworkImage(
-                                 UserService.userModel.profileImgUrl  ?? 'https://picsum.photos/200/300',
+                                backgroundImage: NetworkImage(
+                                  UserService.userModel.profileImgUrl ??
+                                      'https://picsum.photos/200/300',
                                 ),
                                 foregroundImage: controller.profilePic.value !=
                                         null
@@ -87,16 +94,21 @@ class HandymanProfileEdit extends StatelessWidget {
                       validator: controller.generalValidation,
                       label: "Full Name",
                       hint: "Wahab",
-                      suffix: Icon(Icons.person_rounded,color: Theme.of(context).primaryColor,),
+                      suffix: Icon(
+                        Icons.person_rounded,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                     10.verticalSpace,
                     CustomTextField(
-
                       controller: controller.cnicController,
                       validator: controller.generalValidation,
                       label: "CNIC",
                       hint: "xxxxx-xxxxxxx-x".toUpperCase(),
-                      suffix: Icon(FontAwesomeIcons.idCardClip,color: Theme.of(context).primaryColor,),
+                      suffix: Icon(
+                        FontAwesomeIcons.idCardClip,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       hintStyle: hintStyle,
                     ),
                     10.verticalSpace,
@@ -106,28 +118,31 @@ class HandymanProfileEdit extends StatelessWidget {
                       validator: controller.generalValidation,
                       label: "Contact Number",
                       hint: 'Enter Phone No',
-                      suffix: Icon(Icons.phone,color: Theme.of(context).primaryColor,),
+                      suffix: Icon(
+                        Icons.phone,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                     20.verticalSpace,
                     CustomTextField(
-                      onTap: () async{
+                      onTap: () async {
+                        Map<String, dynamic>? map =
+                            await Get.to(() => const GoogleMapScreen());
+                        if (map != null) {
+                          Placemark? placeMark = map['address'];
+                          controller.position = map['location'];
+                          String? name = placeMark!.name;
+                          String? subLocality = placeMark.subLocality;
+                          String? locality = placeMark.locality;
+                          String? administrativeArea =
+                              placeMark.administrativeArea;
+                          String? postalCode = placeMark.postalCode;
+                          String? country = placeMark.country;
+                          String? address =
+                              "$name, $subLocality, $locality, $administrativeArea $postalCode, $country";
 
-                       Map<String,dynamic>? map = await Get.to(()=>const GoogleMapScreen());
-                       if(map!=null){
-                         Placemark? placeMark = map['address'];
-                         controller.position = map['location'];
-                         String? name = placeMark!.name;
-                         String? subLocality = placeMark.subLocality;
-                         String? locality = placeMark.locality;
-                         String? administrativeArea = placeMark.administrativeArea;
-                         String? postalCode = placeMark.postalCode;
-                         String? country = placeMark.country;
-                         String? address = "$name, $subLocality, $locality, $administrativeArea $postalCode, $country";
-
-
-                         controller.location.text = address;
-
-                       }
+                          controller.location.text = address;
+                        }
                       },
                       isDisabled: true,
                       hintStyle: hintStyle,
@@ -135,16 +150,56 @@ class HandymanProfileEdit extends StatelessWidget {
                       validator: controller.generalValidation,
                       label: "Location",
                       hint: "Location",
-                      suffix: Icon(Icons.location_on,color: Theme.of(context).primaryColor,),
+                      suffix: Icon(
+                        Icons.location_on,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    GetBuilder(
+                        init: controller,
+                        builder: (com) => Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20.h),
+                                  child: ServiceCategoryDropdown(
+                                    onChange: (String v) {
+                                      controller.selectedCategory!.add(v);
+                                    },
+                                    value: null,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+
+                              ],
+                            )),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Obx(
+                        ()=> Wrap(
+                          alignment: WrapAlignment.start,
+                          children: (controller.selectedCategory!
+                              .map<Widget>(
+                                (e) => PillItem(
+                                item: e,
+                                onCrossTap: () {
+                                  controller.selectedCategory!
+                                      .remove(e);
+                                }),)
+                          )
+                              .toList(),
+                        ),
+                      ),
                     ),
                     20.verticalSpace,
                     Obx(() {
                       return BusyButton(
                         title: "Save Changes",
                         isBusy: controller.isUploading.value,
-                        onPressed: () async{
-                          if(_key.currentState!.validate()){
-                           await controller.updateProfile();
+                        onPressed: () async {
+                          if (_key.currentState!.validate()) {
+                            await controller.updateProfile();
                           }
                         },
                       );

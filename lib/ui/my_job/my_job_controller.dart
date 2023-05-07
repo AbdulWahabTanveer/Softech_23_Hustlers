@@ -14,6 +14,8 @@ class MyJobController extends GetxController {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getJobs() {
+    print(FirebaseAuth.instance.currentUser
+        !.uid);
     return FirebaseFirestore.instance.collection('jobs').where('uid',isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots();
 
   }

@@ -79,9 +79,12 @@ class MyPost extends StatelessWidget {
                               padding: EdgeInsets.all(15.h),
                               margin: EdgeInsets.only(top: 12.h),
                               decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.05),
+                                color: Get.theme.primaryColor ==
+                                        AppTheme.darkTheme.primaryColor
+                                    ? Colors.white.withOpacity(0.2)
+                                    : Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.05),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
@@ -141,10 +144,10 @@ class MyPost extends StatelessWidget {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 8.w, vertical: 5.h),
                                         child: Text(
-                                          bid.accepted
+                                          job.handymanId!=null?"Rejected":bid.accepted
                                               ? "Accepted"
                                               : bid.rejected
-                                                  ? "Rejeccted"
+                                                  ? "Rejected"
                                                   : "Pending",
                                           style: TextStyle(
                                               fontSize: 12.sp,
