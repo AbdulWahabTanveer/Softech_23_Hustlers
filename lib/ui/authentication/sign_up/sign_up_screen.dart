@@ -12,6 +12,8 @@ import 'package:softech_hustlers/style/textstyles.dart';
 import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/authentication/sign_up/sign_up_controller.dart';
 
+import '../../../style/app_theme.dart';
+
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -90,7 +92,8 @@ class SignUpScreen extends StatelessWidget {
                           onTap: (){
                             Get.to(()=>LoginScreen());
                           },
-                          child: Text('Sign In', style: ts14w400.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w800, fontSize: 16.sp),))
+                          child: Text('Sign In', style: ts14w400.copyWith(color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor? Colors.white:Theme.of(context).primaryColor, fontWeight: FontWeight.w800, fontSize: 16.sp),))
 
                     ],
                   ),

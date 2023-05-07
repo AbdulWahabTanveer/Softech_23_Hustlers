@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../style/app_theme.dart';
 
 
 class CustomDropdownSelect extends StatelessWidget {
@@ -29,14 +33,16 @@ class CustomDropdownSelect extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+        Text(label, style: TextStyle(color: Get.theme.primaryColor ==
+        AppTheme.darkTheme.primaryColor? Colors.white:Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
         5.verticalSpace,
 
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             // border: Border.all(color: borderColor.withOpacity(0.2)),
-            color: Colors.green.withOpacity(0.05),
+            color: Get.theme.primaryColor ==
+                AppTheme.darkTheme.primaryColor? Colors.white:Colors.green.withOpacity(0.05),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: DropdownButtonHideUnderline(
