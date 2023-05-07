@@ -20,9 +20,9 @@ class _UserDashBoardState extends State<UserDashBoard> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          UserHomeScreen(),
-          MyPost(),
-          SizedBox(),
+          const UserHomeScreen(),
+          const MyPost(),
+          const SizedBox(),
           HandyManProfile(),
         ],
       ),
