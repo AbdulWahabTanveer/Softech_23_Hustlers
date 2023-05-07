@@ -67,7 +67,7 @@ class ProfileEditController extends GetxController {
         'lat': position?.latitude,
         'lng': position?.longitude,
         'profileImgUrl': downloadUrl,
-        ' serviceCategory': selectedCategory!.value
+        'serviceCategory': selectedCategory!.value
       });
 
       UserService.userModel = UserModel(
@@ -80,6 +80,9 @@ class ProfileEditController extends GetxController {
           lat: position?.latitude,
           lng: position?.longitude,
           profileImgUrl: downloadUrl);
+      Get.back();
+      Get.snackbar("Success", "User Updated",
+          backgroundColor: Colors.green, colorText: Colors.white);
     } catch (e) {
       Get.snackbar("Request Failed", e.toString(),
           backgroundColor: Colors.red, colorText: Colors.white);
