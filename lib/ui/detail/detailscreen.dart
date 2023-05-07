@@ -86,6 +86,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         key: form,
                                         child: CustomTextField(
                                           controller: newBid,
+                                          keyboardType: TextInputType.number,
                                           validator: (value) {
                                             if (con.alreadyExist) {
                                               return "You cannot Bid twice";
@@ -93,7 +94,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                             if (value == "") {
                                               return "Bid cannot be empty";
                                             }
-
+                                            if(!newBid.text.isNumericOnly){
+                                              return "Please enter a valid number";
+                                            }
                                             if (double.parse(newBid.text) >
                                                 amount) {
                                               return "Amount Cannot Be More than previous bid";

@@ -31,9 +31,9 @@ class HandymanProfileEdit extends StatelessWidget {
         title: const Text("Edit profile"),
         elevation: 0,
         backgroundColor:
-            Get.theme.primaryColor == AppTheme.darkTheme.primaryColor
-                ? appBackgroundColor
-                : null,
+        Get.theme.primaryColor == AppTheme.darkTheme.primaryColor
+            ? appBackgroundColor
+            : null,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -42,7 +42,7 @@ class HandymanProfileEdit extends StatelessWidget {
             children: [
               Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: kpHorizontalPadding.w),
+                EdgeInsets.symmetric(horizontal: kpHorizontalPadding.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -63,10 +63,10 @@ class HandymanProfileEdit extends StatelessWidget {
                                       'https://picsum.photos/200/300',
                                 ),
                                 foregroundImage: controller.profilePic.value !=
-                                        null
+                                    null
                                     ? MemoryImage(
-                                        File(controller.profilePic.value!.path)
-                                            .readAsBytesSync())
+                                    File(controller.profilePic.value!.path)
+                                        .readAsBytesSync())
                                     : null,
                               );
                             }),
@@ -127,7 +127,7 @@ class HandymanProfileEdit extends StatelessWidget {
                     CustomTextField(
                       onTap: () async {
                         Map<String, dynamic>? map =
-                            await Get.to(() => const GoogleMapScreen());
+                        await Get.to(() => const GoogleMapScreen());
                         if (map != null) {
                           Placemark? placeMark = map['address'];
                           controller.position = map['location'];
@@ -158,26 +158,26 @@ class HandymanProfileEdit extends StatelessWidget {
                     GetBuilder(
                         init: controller,
                         builder: (com) => Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                                  child: ServiceCategoryDropdown(
-                                    onChange: (String v) {
-                                      controller.selectedCategory!.add(v);
-                                    },
-                                    value: null,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20.h),
+                              child: ServiceCategoryDropdown(
+                                onChange: (String v) {
+                                  controller.selectedCategory!.add(v);
+                                },
+                                value: null,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
 
-                              ],
-                            )),
+                          ],
+                        )),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Obx(
-                        ()=> Wrap(
+                            ()=> Wrap(
                           alignment: WrapAlignment.start,
                           children: (controller.selectedCategory!
                               .map<Widget>(
