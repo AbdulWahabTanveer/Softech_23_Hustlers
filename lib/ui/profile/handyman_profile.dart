@@ -62,7 +62,7 @@ class HandyManProfile extends StatelessWidget {
                                   radius: 60.r,
                                   backgroundImage: NetworkImage(
                                     UserService.userModel.profileImgUrl ??
-                                        'https://picsum.photos/200/300',
+                                        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg',
                                   ),
                                 ),
                               ),
