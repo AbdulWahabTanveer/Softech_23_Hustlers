@@ -61,11 +61,13 @@ class SignInController extends GetxController{
       }
     }
    on FirebaseAuthException catch (e){
+
      Get.snackbar("Request Failed", e.code.replaceAll('-', ' '), backgroundColor: Colors.red,colorText: Colors.white);
      // rethrow;
    }
 
    catch (e){
+     rethrow;
       Get.snackbar("Request Failed", e.toString(), backgroundColor: Colors.red,colorText: Colors.white);
       // print(e);
      // rethrow;

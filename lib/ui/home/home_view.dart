@@ -207,9 +207,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 50.h,
                                             width: 50.h,
                                             child: Icon(
-                                              Fontisto.search,
+                                              Icons.location_history_rounded,
                                               color: Theme.of(context)
                                                   .primaryColor,
+                                              size: 35.h,
                                             ),
                                           ),
                                         ),
@@ -380,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       CrossAxisAlignment
                                                                           .start,
                                                                   children: [
-                                                                    5.verticalSpace,
+                                                                    15.verticalSpace,
                                                                     Text(
                                                                         homeController
                                                                             .currentJobs[

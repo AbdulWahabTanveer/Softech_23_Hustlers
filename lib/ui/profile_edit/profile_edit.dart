@@ -203,7 +203,8 @@ class HandymanProfileEdit extends StatelessWidget {
                           }
                         },
                       );
-                    })
+                    }),
+                    30.verticalSpace,
                   ],
                 ),
               ),

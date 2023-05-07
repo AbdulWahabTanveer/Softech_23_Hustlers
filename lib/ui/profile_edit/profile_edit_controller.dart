@@ -55,6 +55,21 @@ class ProfileEditController extends GetxController {
       if (profilePic.value != null) {
         downloadUrl = await uploadImageAndGetUrl();
       }
+      else{
+        downloadUrl = UserService.userModel.profileImgUrl;
+      }
+
+      double? lat;
+      double? lng;
+
+      if(position!=null){
+        lat = position!.latitude;
+        lng = position!.longitude;
+      }
+      else{
+        lat = UserService.userModel.lat;
+        lng = UserService.userModel.lng;
+      }
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -64,8 +79,8 @@ class ProfileEditController extends GetxController {
         'cnic': cnicController.text,
         'phoneNo': contactNumber.text,
         'location': location.text,
-        'lat': position?.latitude,
-        'lng': position?.longitude,
+        'lat': lat,
+        'lng': lng,
         'profileImgUrl': downloadUrl,
         'serviceCategory': selectedCategory!.value
       });
@@ -77,8 +92,10 @@ class ProfileEditController extends GetxController {
           email: UserService.userModel.email,
           emailVerified: UserService.userModel.emailVerified,
           cnic: int.tryParse(cnicController.text),
-          lat: position?.latitude,
-          lng: position?.longitude,
+          lat: lat,
+          lng: lng,
+          location: location.text,
+          phoneNo: contactNumber.text,
           profileImgUrl: downloadUrl);
       Get.back();
       Get.snackbar("Success", "User Updated",

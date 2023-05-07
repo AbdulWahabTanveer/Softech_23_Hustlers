@@ -13,8 +13,14 @@ import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
 import '../../style/app_theme.dart';
 import 'handyman_profile_controller.dart';
 
-class HandyManProfile extends StatelessWidget {
+class HandyManProfile extends StatefulWidget {
   HandyManProfile({Key? key}) : super(key: key);
+
+  @override
+  State<HandyManProfile> createState() => _HandyManProfileState();
+}
+
+class _HandyManProfileState extends State<HandyManProfile> {
   final controller = Get.put(HandymanProfileController());
 
   @override
@@ -51,8 +57,9 @@ class HandyManProfile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         InkWell(
-                          onTap: () {
-                            Get.to(() => HandymanProfileEdit());
+                          onTap: () async{
+                            await Get.to(() => HandymanProfileEdit());
+                            setState(() {});
                           },
                           child: Stack(
                             clipBehavior: Clip.none,
