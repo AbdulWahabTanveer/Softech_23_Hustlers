@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:softech_hustlers/models/job_model.dart';
@@ -22,11 +23,11 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     return SafeArea(
       child: Scaffold(
         body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('jobs').where('uid', isEqualTo: 'dJuL0iFX3TXzXyGsisO33kWGlTx1').snapshots(),
+          stream: FirebaseFirestore.instance.collection('jobs').where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>  snapshot){
             // if(snapshot.connectionState==ConnectionState.waiting || !(snapshot.hasData)){
             if(snapshot.connectionState==ConnectionState.waiting || !(snapshot.hasData)){
-              return UserHomeShimmer();
+              return const UserHomeShimmer();
             }
             
             List<JobModel> jobsList = snapshot.data!.docs.map((e) => JobModel.fromJson(e.data())).toList();

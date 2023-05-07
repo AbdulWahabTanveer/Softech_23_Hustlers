@@ -273,9 +273,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 return InkWell(
                                                   onTap: () {
                                                     Get.to(() => DetailScreen(
-                                                        homeController
-                                                                .currentJobs[
-                                                            index]));
+                                                          homeController
+                                                                  .currentJobs[
+                                                              index],
+                                                          fromHandyman: true,
+                                                        ));
                                                   },
                                                   child: UnconstrainedBox(
                                                     child: Container(
