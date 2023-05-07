@@ -22,7 +22,6 @@ class _HandyManDashBoardState extends State<HandyManDashBoard> {
         children: [
           HomeScreen(),
           MyPost(),
-          SizedBox(),
           HandyManProfile(),
         ],
       ),
@@ -45,10 +44,6 @@ class _HandyManDashBoardState extends State<HandyManDashBoard> {
           BarItem(
               filledIcon: Icons.my_library_books,
               outlinedIcon: Icons.my_library_books_outlined),
-          BarItem(
-            filledIcon: Icons.chat,
-            outlinedIcon: Icons.chat_outlined,
-          ),
           BarItem(
               filledIcon: Icons.person,
               outlinedIcon: Icons.perm_identity_sharp),
