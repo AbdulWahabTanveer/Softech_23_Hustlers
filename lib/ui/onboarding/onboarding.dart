@@ -33,11 +33,14 @@ class _OnBoardingState extends State<OnBoarding> {
   void initState() {
     super.initState();
     init();
-
     afterBuildCreated(() async {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
+      if(sharedPreferences.getBool("FirstTime")!=null){
+        Get.offAll(()=>LoginScreen());
+      }
       sharedPreferences.setBool("FirstTime", true);
+
       pages.add(WalkThroughModelClass(
           title: walkTitle1, image: walk_Img1, subTitle: walkThrough1));
       pages.add(WalkThroughModelClass(

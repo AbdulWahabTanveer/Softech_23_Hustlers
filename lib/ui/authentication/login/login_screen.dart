@@ -9,6 +9,8 @@ import 'package:softech_hustlers/ui/authentication/forgot_pass/forgot_pass_scree
 import 'package:softech_hustlers/ui/authentication/login/login_controller.dart';
 import 'package:softech_hustlers/ui/authentication/sign_up/sign_up_screen.dart';
 
+import '../../../style/app_theme.dart';
+
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
@@ -69,7 +71,8 @@ class LoginScreen extends StatelessWidget {
                           child: Text(
                             'Forgot password?',
                             style: ts16W400.copyWith(
-                                color: Theme.of(context).primaryColor,
+                                color:  Get.theme.primaryColor ==
+                                    AppTheme.darkTheme.primaryColor? Colors.white:Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w600,
                                 fontStyle: FontStyle.italic),
                           )),
@@ -104,7 +107,8 @@ class LoginScreen extends StatelessWidget {
                           child: Text(
                             'Sign Up',
                             style: ts14w400.copyWith(
-                                color: Theme.of(context).primaryColor,
+                                color: Get.theme.primaryColor ==
+                                    AppTheme.darkTheme.primaryColor? Colors.white:Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w800,
                                 fontSize: 16.sp),
                           ))

@@ -3,7 +3,6 @@ import 'package:softech_hustlers/ui/my_job/my_job.dart';
 import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 import 'package:softech_hustlers/ui/userhome/userhome.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
-
 import '../user_view_bid/user_view_bid.dart';
 
 class UserDashBoard extends StatefulWidget {
@@ -15,18 +14,16 @@ class UserDashBoard extends StatefulWidget {
 
 class _UserDashBoardState extends State<UserDashBoard> {
   int currentIndex = 0;
+  List<Widget> data=[
+    const UserHomeScreen(),
+    MyJob(),
+    UserViewBidScreen(),
+    HandyManProfile(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          const UserHomeScreen(),
-          MyJob(),
-          UserViewBidScreen(),
-          HandyManProfile(),
-        ],
-      ),
+      body:data[currentIndex],
       bottomNavigationBar: WaterDropNavBar(
         backgroundColor: Colors.white,
         waterDropColor: Theme.of(context).primaryColor,

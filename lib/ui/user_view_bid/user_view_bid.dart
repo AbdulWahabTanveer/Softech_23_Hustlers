@@ -29,7 +29,7 @@ class UserViewBidScreen extends StatelessWidget {
             : null,
       ),
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('bids')
+          stream: FirebaseFirestore.instance.collection('bids').where("customerId",isEqualTo: FirebaseAuth.instance.currentUser!.uid)
               // .where('customerId',isEqualTo: FirebaseAuth.instance.currentUser!.uid)
               .snapshots().
           asyncMap((event) async{
@@ -37,6 +37,7 @@ class UserViewBidScreen extends StatelessWidget {
             print('into async map');
 
             print("docs length: ${event.docs.length}");
+
 
             List<String> handyManIds = event.docs.map((QueryDocumentSnapshot<Map<String,dynamic>> e) => ((e.data())['handymanId']).toString()).toSet().toList();
             print('handymen ids length: ${handyManIds.length}');
@@ -231,8 +232,10 @@ class _ViewUserBidTileState extends State<ViewUserBidTile> {
           });
 
           await FirebaseFirestore.instance.collection('jobs').doc(jobModel.id).update({
-            'handymanId': handyman.id
+            'handymanId': handyman.id,
+            'status':"InProgress"
           });
+
           setState(() {
             loading = false;
           });

@@ -5,6 +5,7 @@ import 'package:softech_hustlers/services/user_service.dart';
 import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/dahsboard/handymandashboard.dart';
 import 'package:softech_hustlers/ui/dahsboard/userDashBoard.dart';
+import 'package:softech_hustlers/ui/onboarding/onboarding.dart';
 
 class StartUpController extends GetxController{
 
@@ -18,7 +19,7 @@ class StartUpController extends GetxController{
   Future initialize() async{
     if(FirebaseAuth.instance.currentUser==null){
       await Future.delayed(const Duration(seconds: 2));
-      Get.off(()=>LoginScreen());
+      Get.off(()=>OnBoarding());
     }
     else{
       await UserService.initialize();

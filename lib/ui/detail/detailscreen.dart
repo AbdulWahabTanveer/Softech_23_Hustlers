@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
+import 'package:softech_hustlers/utils/common_image_view.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_player/video_player.dart';
 
@@ -187,10 +188,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ? VideouploadWidget(url: i)
                                   : Container(
                                       width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
+                                      child: CommonImageView(
                                               fit: BoxFit.cover,
-                                              image: NetworkImage(i))));
+                                              url: i,
+                                      ));
                             },
                           );
                         }).toList(),

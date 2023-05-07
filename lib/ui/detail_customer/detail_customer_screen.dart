@@ -40,7 +40,7 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: widget.job.status == "Pending"
+          bottomNavigationBar: widget.job.status == "InProgress"
               ? Padding(
                   padding: EdgeInsets.all(10.h),
                   child: BusyButton(
@@ -55,9 +55,10 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                             padding: EdgeInsets.all(12.w),
                             child: Column(
                               children: [
-                                const Text(
+                                Text(
                                   "Are you sure you want to mark this job as complete?",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(color: AppTheme.darkTheme.primaryColor==Get.theme.primaryColor ? Colors.white:Colors.black),
                                 ),
                                 SizedBox(
                                   height: 20.h,
@@ -111,7 +112,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                                       title: "Add Review",
                                       isBusy: false,
                                       onPressed: () async {
-                                        await controller.uploadReview();
+                                        await controller.uploadReview(widget.job.handymanId!);
+                                        Get.back();
                                         Get.back();
                                       }),
                                 )
@@ -232,25 +234,7 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 30.h,
-                        right: 30.w,
-                        child: Container(
-                          height: 50.h,
-                          width: 50.h,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
+
                       Positioned(
                         top: 30.h,
                         left: 30.w,
