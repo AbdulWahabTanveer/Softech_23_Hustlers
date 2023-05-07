@@ -11,6 +11,7 @@ import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/ui/detail_customer/detail_customer_controller.dart';
 
 import '../../global_widgets/busy_button.dart';
+import '../../style/app_theme.dart';
 import '../../style/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../models/user_model.dart';
@@ -97,15 +98,22 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                                 ),
                                 15.verticalSpace,
                                 Padding(
-                                  padding:  EdgeInsets.all(12.w),
-                                  child: CustomTextField(controller: controller.review, validator: (val){}, label: "Review", hint: "Review"),
+                                  padding: EdgeInsets.all(12.w),
+                                  child: CustomTextField(
+                                      controller: controller.review,
+                                      validator: (val) {},
+                                      label: "Review",
+                                      hint: "Review"),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.all(12.w),
-                                  child: BusyButton(title: "Add Review", isBusy: false, onPressed: () async {
-                                    await controller.uploadReview();
-                                    Get.back();
-                                  }),
+                                  child: BusyButton(
+                                      title: "Add Review",
+                                      isBusy: false,
+                                      onPressed: () async {
+                                        await controller.uploadReview();
+                                        Get.back();
+                                      }),
                                 )
                               ],
                             ));
@@ -181,12 +189,12 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                                 }),
                           )),
                       Positioned(
-                        bottom: -85.h,
+                        bottom: -80.h,
                         child: Material(
                           elevation: 5,
                           borderRadius: BorderRadius.circular(10.w),
                           child: Container(
-                            height: 162.h,
+                            height: 140.h,
                             width: 0.8.sw,
                             padding: EdgeInsets.all(20.w),
                             child: Column(
@@ -196,7 +204,10 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                                   widget.job.category,
                                   style: TextStyle(
                                       fontSize: 15.sp,
-                                      color: Colors.grey,
+                                      color: Get.theme.primaryColor ==
+                                              AppTheme.darkTheme.primaryColor
+                                          ? Colors.white
+                                          : Colors.grey,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 10.verticalSpace,
@@ -216,26 +227,6 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                                       fontWeight: FontWeight.w500),
                                 ),
                                 10.verticalSpace,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Rating",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "0.0",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
-                                ),
                               ],
                             ),
                           ),
@@ -264,18 +255,18 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                         top: 30.h,
                         left: 30.w,
                         child: Container(
-                          height: 50.h,
-                          width: 50.h,
+                          height: 34.h,
+                          width: 34.h,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
                           ),
                           child: IconButton(
                             onPressed: () => Get.back(),
-                            icon: const Icon(
+                            icon:  Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.black,
-                              size: 30,
+                              size: 16.sp,
                             ),
                           ),
                         ),
@@ -289,7 +280,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       'Description',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor ? Colors.white:Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -300,7 +292,7 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                         horizontal: kpHorizontalPadding),
                     child: Text(
                       widget.job.description,
-                      style: TextStyle(color: Colors.grey, fontSize: 15.sp),
+                      style: TextStyle(color:  Colors.grey, fontSize: 15.sp),
                     ),
                   ),
                   20.verticalSpace,
@@ -310,7 +302,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       'Timing',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor ? Colors.white:Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -331,7 +324,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       'Status',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor ? Colors.white:Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -343,7 +337,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       widget.job.status,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor ? Colors.grey:Colors.black,
                         fontSize: 15.sp,
                       ),
                     ),

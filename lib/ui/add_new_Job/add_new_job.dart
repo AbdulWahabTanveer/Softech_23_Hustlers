@@ -16,6 +16,7 @@ import 'package:softech_hustlers/utils/common_image_view.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../global_widgets/services_category_dropdown.dart';
+import '../../style/app_theme.dart';
 import 'add_new_job_controller.dart';
 
 class AddNewJob extends StatelessWidget {
@@ -25,7 +26,11 @@ class AddNewJob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add New Job")),
+      appBar: AppBar(title: const Text("Add New Job"),
+        backgroundColor: Get.theme.primaryColor ==
+            AppTheme.darkTheme.primaryColor
+            ? Colors.black
+            : null,),
       body: SizedBox(
         height: 1.sh,
         width: 1.sw,
@@ -231,6 +236,7 @@ class AddNewJob extends StatelessWidget {
                       },
                     );
                   }),
+                  20.verticalSpace,
                 ],
               ),
             ),

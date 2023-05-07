@@ -22,21 +22,16 @@ class HandyManProfile extends StatelessWidget {
     final UserModel userModel = UserService.userModel;
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            'Profile',
-            style: appBarTextStyle,
-          ),
-          elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const FaIcon(FontAwesomeIcons.info),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.edit),
-            ),
-          ]),
+        title: Text(
+          'Profile',
+          style: appBarTextStyle,
+        ),
+        backgroundColor: Get.theme.primaryColor ==
+            AppTheme.darkTheme.primaryColor
+            ? Colors.black
+            : null,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -48,7 +43,9 @@ class HandyManProfile extends StatelessWidget {
                     width: double.infinity,
                     height: 300.h,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -109,7 +106,7 @@ class HandyManProfile extends StatelessWidget {
                             color: Colors.grey.shade300,
                           ),
                           borderRadius:
-                              BorderRadius.all(Radius.circular(20.sp)),
+                          BorderRadius.all(Radius.circular(20.sp)),
                         ),
                         child: Center(
                           child: Row(
@@ -120,10 +117,12 @@ class HandyManProfile extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    '93',
-                                    style: theme16w700,
-                                  ),
+                                  Obx(() {
+                                    return Text(
+                                      controller.noOfServices.value,
+                                      style: theme16w700,
+                                    );
+                                  }),
                                   5.verticalSpace,
                                   Text(
                                     'Service\nDelivered',
@@ -190,7 +189,7 @@ class HandyManProfile extends StatelessWidget {
                                     "Available Status",
                                     style: black16w700.copyWith(
                                         color: Get.theme.primaryColor ==
-                                                AppTheme.darkTheme.primaryColor
+                                            AppTheme.darkTheme.primaryColor
                                             ? Colors.white
                                             : null),
                                   ),
@@ -214,7 +213,9 @@ class HandyManProfile extends StatelessWidget {
                               value: controller.isOnline.value,
                               padding: 8.w,
                               showOnOff: true,
-                              activeColor: Theme.of(context).primaryColor,
+                              activeColor: Theme
+                                  .of(context)
+                                  .primaryColor,
                               onToggle: (bool value) {
                                 controller.changeStatus();
                               },
@@ -231,16 +232,18 @@ class HandyManProfile extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      leading: FaIcon(FontAwesomeIcons.globe,color:Get.theme.primaryColor ==
-                          AppTheme.darkTheme.primaryColor
-                          ? Colors.white
-                          : null),
+                      leading: FaIcon(FontAwesomeIcons.globe,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : null),
                       title: Text(
                         'App Language',
-                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                        style: black16w700.copyWith(color: Get.theme
+                            .primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -248,16 +251,18 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
-                      leading:  FaIcon(FontAwesomeIcons.sun,color:Get.theme.primaryColor ==
+                      leading: FaIcon(
+                          FontAwesomeIcons.sun, color: Get.theme.primaryColor ==
                           AppTheme.darkTheme.primaryColor
                           ? Colors.white
                           : null),
                       title: Text(
                         'App Theme',
-                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                        style: black16w700.copyWith(color: Get.theme
+                            .primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: SizedBox(
                         width: 60.w,
@@ -268,7 +273,9 @@ class HandyManProfile extends StatelessWidget {
                             valueFontSize: 12.sp,
                             toggleSize: 12.sp,
                             value: controller.isNotification.value,
-                            activeColor: Theme.of(context).primaryColor,
+                            activeColor: Theme
+                                .of(context)
+                                .primaryColor,
                             padding: 8.w,
                             showOnOff: true,
                             onToggle: (bool value) {
@@ -282,16 +289,18 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
-                      leading: FaIcon(FontAwesomeIcons.lock,color:Get.theme.primaryColor ==
-                          AppTheme.darkTheme.primaryColor
-                          ? Colors.white
-                          : null),
+                      leading: FaIcon(FontAwesomeIcons.lock,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : null),
                       title: Text(
                         'Change password',
-                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                        style: black16w700.copyWith(color: Get.theme
+                            .primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -299,16 +308,18 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
-                      leading: FaIcon(FontAwesomeIcons.circleInfo,color:Get.theme.primaryColor ==
-                          AppTheme.darkTheme.primaryColor
-                          ? Colors.white
-                          : null),
+                      leading: FaIcon(FontAwesomeIcons.circleInfo,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : null),
                       title: Text(
                         'About',
-                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                        style: black16w700.copyWith(color: Get.theme
+                            .primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -318,16 +329,18 @@ class HandyManProfile extends StatelessWidget {
                         Get.offAll(() => LoginScreen());
                       },
                       leading:
-                           FaIcon(FontAwesomeIcons.arrowRightFromBracket,color:Get.theme.primaryColor ==
+                      FaIcon(FontAwesomeIcons.arrowRightFromBracket,
+                          color: Get.theme.primaryColor ==
                               AppTheme.darkTheme.primaryColor
                               ? Colors.white
                               : null),
                       title: Text(
                         'Logout',
-                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                        style: black16w700.copyWith(color: Get.theme
+                            .primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                     ),
                     Divider(

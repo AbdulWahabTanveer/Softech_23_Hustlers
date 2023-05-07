@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,8 +9,19 @@ class HandymanProfileController extends GetxController {
   Rx<bool> isOnline = true.obs;
   Rx<Color> availabitityColor = Colors.green.withOpacity(0.2).obs;
   Rx<Color> availabitityTextColor = Colors.green.obs;
-
   Rx<bool> isNotification = Rx<bool>(GetStorage().read('theme') ?? false);
+  Rx<String> noOfServices = 'xxx'.obs;
+
+  @override
+  onInit(){
+    getServices();
+    super.onInit();
+  }
+
+  getServices() async {
+    var docs=await FirebaseFirestore.instance.collection('user').where("handymanId",isEqualTo:  FirebaseAuth.instance.currentUser!.uid).get();
+    noOfServices.value=(docs.docs.length.toString());
+  }
 
   void changeStatus() {
     if (availableStatus.value == 'You are Online') {
@@ -35,4 +48,6 @@ class HandymanProfileController extends GetxController {
       GetStorage().write('theme', true);
     }
   }
+
+
 }

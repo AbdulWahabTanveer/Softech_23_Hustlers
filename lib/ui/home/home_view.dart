@@ -62,12 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
+                                            child:  CommonImageView(
                                                     fit: BoxFit.cover,
-                                                    image: Image.network(
-                                                            i.images[0])
-                                                        .image)));
+                                                    url: i.images[0]));
                                       },
                                     );
                                   }).toList(),

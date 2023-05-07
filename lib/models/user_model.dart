@@ -1,4 +1,5 @@
 import 'package:softech_hustlers/enum/account_type.dart';
+import 'package:softech_hustlers/models/review_model.dart';
 
 class UserModel {
   final String userName;
@@ -13,8 +14,10 @@ class UserModel {
   final double? lat;
   final String? profileImgUrl;
   final String? serviceCategory;
+  final String? id;
+  List<ReviewModel> reviewModel;
 
-  const UserModel({
+  UserModel({
     required this.userName,
     required this.accountType,
     required this.email,
@@ -26,7 +29,9 @@ class UserModel {
     this.lng,
     this.lat,
     this.profileImgUrl,
-    this.serviceCategory
+    this.serviceCategory,
+    this.id,
+    this.reviewModel = const [],
   });
 
 
@@ -46,6 +51,8 @@ class UserModel {
       'lat': lat,
       'profileImgUrl':profileImgUrl,
       'serviceCategory':serviceCategory,
+      'id':id,
+      'reviewModel' : reviewModel.map((e) => e.toJson())
     };
   }
 
@@ -62,7 +69,9 @@ class UserModel {
       lat: map['lat'],
       lng: map['lng'],
       profileImgUrl: map['profileImgUrl'],
-      serviceCategory: map['serviceCategory']
+      serviceCategory: map['serviceCategory'],
+      id: map['id'],
+      reviewModel: ((map['reviewModel'] ?? [] ) as List).map((e) => ReviewModel.fromJson(e)).toList()
     );
   }
 

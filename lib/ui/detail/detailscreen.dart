@@ -1,8 +1,4 @@
-import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:chewie/chewie.dart';
-import 'package:chewie/src/center_play_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:video_player/video_player.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
@@ -64,15 +61,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  double amount = 0;
+                                  double amount = widget.job.price;
 
                                   snapshot.data!.docs.forEach((element) {
                                     Bid bid = Bid.fromMap(element.data());
-                                    if (bid.handymanId ==
-                                        FirebaseAuth
-                                            .instance.currentUser!.uid) {
-                                      con.alreadyExist = true;
-                                    }
+
                                     if (amount > bid.amount) {
                                       amount = bid.amount;
                                     }
@@ -121,11 +114,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                             print("ssss");
                                             if (form.currentState!.validate()) {
                                               con.loading.value = true;
-
+String uid=Uuid().v4();
                                               await FirebaseFirestore.instance
                                                   .collection("bids")
-                                                  .add(Bid(
-                                                          id: "",
+                                                  .doc(uid).set(Bid(
                                                           accepted: false,
                                                           amount: double.parse(
                                                               newBid.text),
@@ -170,7 +162,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     children: [
                       CarouselSlider(
                         options: CarouselOptions(
-                            autoPlay: false,
+                            autoPlay: true,
                             autoPlayInterval: const Duration(seconds: 3),
                             height: 370.h,
                             viewportFraction: 1,
@@ -258,7 +250,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           elevation: 5,
                           borderRadius: BorderRadius.circular(10.w),
                           child: Container(
-                            height: 162.h,
+                            height: 130.h,
                             width: 0.8.sw,
                             padding: EdgeInsets.all(20.w),
                             child: Column(
@@ -287,27 +279,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                       color: primaryColor,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                10.verticalSpace,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Rating",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "0.0",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
-                                ),
                               ],
                             ),
                           ),
@@ -317,8 +288,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         top: 30.h,
                         left: 30.w,
                         child: Container(
-                          height: 50.h,
-                          width: 50.h,
+                          height: 34.h,
+                          width: 34.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
@@ -330,7 +301,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             icon: Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.black,
-                              size: 30,
+                              size: 16.sp,
                             ),
                           ),
                         ),
@@ -344,7 +315,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Text(
                       'Description',
                       style: TextStyle(
-                          color: Colors.black,
+                          color:  Get.theme.primaryColor ==
+                      AppTheme.darkTheme.primaryColor
+                      ? Colors.white:
+                          Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -365,7 +339,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Text(
                       'Timing',
                       style: TextStyle(
-                          color: Colors.black,
+                          color:  Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white:
+                          Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -386,19 +363,24 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Text(
                       'About Provider',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.sp,
+                          color:  Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white:
+                          Colors.black,                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  5.verticalSpace,
+                  10.verticalSpace,
                   Container(
                     padding: EdgeInsets.all(20.h),
                     margin:
                         EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.h),
-                      color: Theme.of(context).primaryColor.withOpacity(0.05),
+                      color:  Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white:
+                      Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
                     child: FutureBuilder<UserModel>(
                         future: getUser(),
@@ -409,8 +391,8 @@ class _DetailScreenState extends State<DetailScreen> {
                             return Row(
                               children: [
                                 Container(
-                                  height: 60.h,
-                                  width: 60.h,
+                                  height: 50.h,
+                                  width: 50.w,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -427,7 +409,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       snapshot.data!.userName,
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 20.sp,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     widget.fromHandyman
