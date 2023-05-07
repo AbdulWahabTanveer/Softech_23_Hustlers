@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chewie/chewie.dart';
+import 'package:chewie/src/center_play_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +10,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
-import 'package:video_player/video_player.dart';
 import 'package:uuid/uuid.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
 import '../../models/bid_model.dart';
 import '../../models/user_model.dart';
+import '../../style/app_theme.dart';
 import '../../style/colors.dart';
 import 'dialogcontroller.dart';
 
@@ -114,10 +119,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                             print("ssss");
                                             if (form.currentState!.validate()) {
                                               con.loading.value = true;
-String uid=Uuid().v4();
+                                              String uid = Uuid().v4();
                                               await FirebaseFirestore.instance
                                                   .collection("bids")
-                                                  .doc(uid).set(Bid(
+                                                  .doc(uid)
+                                                  .set(Bid(
                                                           accepted: false,
                                                           amount: double.parse(
                                                               newBid.text),
@@ -129,7 +135,8 @@ String uid=Uuid().v4();
                                                                   .currentUser!
                                                                   .uid,
                                                           jobId: widget.job.id,
-                                                          rejected: false)
+                                                          rejected: false,
+                                                          id: uid)
                                                       .toMap());
                                               con.loading.value = false;
                                               Get.back();
@@ -315,10 +322,10 @@ String uid=Uuid().v4();
                     child: Text(
                       'Description',
                       style: TextStyle(
-                          color:  Get.theme.primaryColor ==
-                      AppTheme.darkTheme.primaryColor
-                      ? Colors.white:
-                          Colors.black,
+                          color: Get.theme.primaryColor ==
+                                  AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -339,10 +346,10 @@ String uid=Uuid().v4();
                     child: Text(
                       'Timing',
                       style: TextStyle(
-                          color:  Get.theme.primaryColor ==
-                              AppTheme.darkTheme.primaryColor
-                              ? Colors.white:
-                          Colors.black,
+                          color: Get.theme.primaryColor ==
+                                  AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -363,10 +370,11 @@ String uid=Uuid().v4();
                     child: Text(
                       'About Provider',
                       style: TextStyle(
-                          color:  Get.theme.primaryColor ==
-                              AppTheme.darkTheme.primaryColor
-                              ? Colors.white:
-                          Colors.black,                          fontSize: 15.sp,
+                          color: Get.theme.primaryColor ==
+                                  AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -377,10 +385,10 @@ String uid=Uuid().v4();
                         EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.h),
-                      color:  Get.theme.primaryColor ==
-                          AppTheme.darkTheme.primaryColor
-                          ? Colors.white:
-                      Theme.of(context).primaryColor.withOpacity(0.05),
+                      color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                          ? Colors.white
+                          : Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
                     child: FutureBuilder<UserModel>(
                         future: getUser(),
