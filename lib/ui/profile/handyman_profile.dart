@@ -10,6 +10,7 @@ import 'package:softech_hustlers/style/textstyles.dart';
 import 'package:softech_hustlers/ui/authentication/login/login_screen.dart';
 import 'package:softech_hustlers/ui/profile_edit/profile_edit.dart';
 
+import '../../style/app_theme.dart';
 import 'handyman_profile_controller.dart';
 
 class HandyManProfile extends StatelessWidget {
@@ -25,17 +26,12 @@ class HandyManProfile extends StatelessWidget {
             'Profile',
             style: appBarTextStyle,
           ),
+          backgroundColor: Get.theme.primaryColor ==
+              AppTheme.darkTheme.primaryColor
+              ? Colors.black
+              : null,
           elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const FaIcon(FontAwesomeIcons.info),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.edit),
-            ),
-          ]),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -187,7 +183,11 @@ class HandyManProfile extends StatelessWidget {
                                 children: [
                                   Text(
                                     "Available Status",
-                                    style: black16w700,
+                                    style: black16w700.copyWith(
+                                        color: Get.theme.primaryColor ==
+                                                AppTheme.darkTheme.primaryColor
+                                            ? Colors.white
+                                            : null),
                                   ),
                                   Obx(() {
                                     return Text(
@@ -226,10 +226,16 @@ class HandyManProfile extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      leading: FaIcon(FontAwesomeIcons.globe),
+                      leading: FaIcon(FontAwesomeIcons.globe,color:Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white
+                          : null),
                       title: Text(
                         'App Language',
-                        style: black16w700,
+                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor
+                            ? Colors.white
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -237,10 +243,16 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
-                      leading: const FaIcon(FontAwesomeIcons.sun),
+                      leading:  FaIcon(FontAwesomeIcons.sun,color:Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white
+                          : null),
                       title: Text(
                         'App Theme',
-                        style: black16w700,
+                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor
+                            ? Colors.white
+                            : Colors.black),
                       ),
                       trailing: SizedBox(
                         width: 60.w,
@@ -265,10 +277,16 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
-                      leading: FaIcon(FontAwesomeIcons.lock),
+                      leading: FaIcon(FontAwesomeIcons.lock,color:Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white
+                          : null),
                       title: Text(
                         'Change password',
-                        style: black16w700,
+                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor
+                            ? Colors.white
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -276,24 +294,35 @@ class HandyManProfile extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     ListTile(
-                      leading: FaIcon(FontAwesomeIcons.circleInfo),
+                      leading: FaIcon(FontAwesomeIcons.circleInfo,color:Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white
+                          : null),
                       title: Text(
                         'About',
-                        style: black16w700,
+                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor
+                            ? Colors.white
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
-
-
                     ListTile(
-                      onTap: () async{
-                       await FirebaseAuth.instance.signOut();
-                       Get.offAll(()=>LoginScreen());
+                      onTap: () async {
+                        await FirebaseAuth.instance.signOut();
+                        Get.offAll(() => LoginScreen());
                       },
-                      leading: const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
+                      leading:
+                           FaIcon(FontAwesomeIcons.arrowRightFromBracket,color:Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white
+                              : null),
                       title: Text(
                         'Logout',
-                        style: black16w700,
+                        style: black16w700.copyWith(color:Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor
+                            ? Colors.white
+                            : Colors.black),
                       ),
                     ),
                     Divider(

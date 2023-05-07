@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:softech_hustlers/style/app_theme.dart';
+import 'package:softech_hustlers/ui/add_new_Job/add_new_job.dart';
 import 'package:softech_hustlers/ui/dahsboard/userDashBoard.dart';
 import 'package:softech_hustlers/ui/my_job/my_job.dart';
 import 'package:softech_hustlers/ui/statrup/startup.dart';

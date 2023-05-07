@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../style/app_theme.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -14,7 +17,8 @@ class CustomTextField extends StatelessWidget {
     this.isDisabled = false,
     this.hideText = false,
     this.hintStyle,
- this.keyboardType, this.inputFormat,
+    this.keyboardType,
+    this.inputFormat,
   }) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
@@ -27,6 +31,7 @@ class CustomTextField extends StatelessWidget {
   final bool hideText;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormat;
+
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder border = OutlineInputBorder(
@@ -40,7 +45,10 @@ class CustomTextField extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-              color: Theme.of(context).primaryColor,
+              color: Get.theme.primaryColor ==
+                  AppTheme.darkTheme.primaryColor
+                  ? Colors.white
+                  : Theme.of(context).primaryColor.withOpacity(0.05),
               fontWeight: FontWeight.bold),
         ),
         5.verticalSpace,
@@ -65,9 +73,11 @@ class CustomTextField extends StatelessWidget {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
                     isDense: false,
-                    fillColor: true
-                        ? Theme.of(context).primaryColor.withOpacity(0.05)
-                        : Colors.grey.withOpacity(0.1),
+                    fillColor: Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor
+                        ? Colors.white
+                        : Theme.of(context).primaryColor.withOpacity(0.05),
+
                     filled: true,
                     // labelText: label,
                     hintText: hint,
@@ -89,9 +99,10 @@ class CustomTextField extends StatelessWidget {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
                   isDense: false,
-                  fillColor: true
-                      ? Theme.of(context).primaryColor.withOpacity(0.05)
-                      : Colors.grey.withOpacity(0.1),
+                  fillColor: Get.theme.primaryColor ==
+                      AppTheme.darkTheme.primaryColor
+                      ? Colors.white
+                      : Theme.of(context).primaryColor.withOpacity(0.05),
                   filled: true,
                   // labelText: label,
                   hintText: hint,

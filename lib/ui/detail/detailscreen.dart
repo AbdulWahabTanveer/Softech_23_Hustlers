@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
 import '../../models/bid_model.dart';
 import '../../models/user_model.dart';
+import '../../style/app_theme.dart';
 import '../../style/colors.dart';
 import 'dialogcontroller.dart';
 
@@ -128,7 +128,8 @@ String uid=Uuid().v4();
                                                                   .currentUser!
                                                                   .uid,
                                                           jobId: widget.job.id,
-                                                          rejected: false, id: uid)
+                                                          id: '',
+                                                          rejected: false)
                                                       .toMap());
                                               con.loading.value = false;
                                               Get.back();
@@ -221,7 +222,7 @@ String uid=Uuid().v4();
                           elevation: 5,
                           borderRadius: BorderRadius.circular(10.w),
                           child: Container(
-                            height: 162.h,
+                            height: 130.h,
                             width: 0.8.sw,
                             padding: EdgeInsets.all(20.w),
                             child: Column(
@@ -250,27 +251,6 @@ String uid=Uuid().v4();
                                       color: primaryColor,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                10.verticalSpace,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Rating",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "0.0",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
-                                ),
                               ],
                             ),
                           ),
@@ -280,8 +260,8 @@ String uid=Uuid().v4();
                         top: 30.h,
                         left: 30.w,
                         child: Container(
-                          height: 50.h,
-                          width: 50.h,
+                          height: 34.h,
+                          width: 34.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
@@ -293,7 +273,7 @@ String uid=Uuid().v4();
                             icon: Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.black,
-                              size: 30,
+                              size: 16.sp,
                             ),
                           ),
                         ),
@@ -307,7 +287,10 @@ String uid=Uuid().v4();
                     child: Text(
                       'Description',
                       style: TextStyle(
-                          color: Colors.black,
+                          color:  Get.theme.primaryColor ==
+                      AppTheme.darkTheme.primaryColor
+                      ? Colors.white:
+                          Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -328,7 +311,10 @@ String uid=Uuid().v4();
                     child: Text(
                       'Timing',
                       style: TextStyle(
-                          color: Colors.black,
+                          color:  Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white:
+                          Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -349,19 +335,24 @@ String uid=Uuid().v4();
                     child: Text(
                       'About Provider',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.sp,
+                          color:  Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white:
+                          Colors.black,                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  5.verticalSpace,
+                  10.verticalSpace,
                   Container(
                     padding: EdgeInsets.all(20.h),
                     margin:
                         EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.h),
-                      color: Theme.of(context).primaryColor.withOpacity(0.05),
+                      color:  Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white:
+                      Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
                     child: FutureBuilder<UserModel>(
                         future: getUser(),
@@ -372,8 +363,8 @@ String uid=Uuid().v4();
                             return Row(
                               children: [
                                 Container(
-                                  height: 60.h,
-                                  width: 60.h,
+                                  height: 50.h,
+                                  width: 50.w,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -390,7 +381,7 @@ String uid=Uuid().v4();
                                       snapshot.data!.userName,
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 20.sp,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     widget.fromHandyman

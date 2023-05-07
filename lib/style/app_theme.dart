@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -39,9 +40,21 @@ class AppTheme {
     accentColor: Colors.red,
     scaffoldBackgroundColor: scaffoldColorDark,
     fontFamily: GoogleFonts.montserrat().fontFamily,
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: scaffoldSecondaryDark),
     iconTheme: IconThemeData(color: Colors.white),
-    textTheme: TextTheme(headline6: TextStyle(color: textSecondaryColor)),
+    textTheme:  TextTheme(
+        bodyLarge: TextStyle(color: Colors.white),
+bodyMedium: TextStyle(color: Colors.white),
+bodySmall: TextStyle(color: Colors.white),
+
+displayLarge: TextStyle(color: Colors.white),
+displayMedium: TextStyle(color: Colors.white),
+displaySmall: TextStyle(color: Colors.white),
+
+
+
+        ),
     dialogBackgroundColor: scaffoldSecondaryDark,
     unselectedWidgetColor: Colors.white60,
     dividerColor: Colors.white12,
