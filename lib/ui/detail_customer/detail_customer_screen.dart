@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/ui/detail_customer/detail_customer_controller.dart';
@@ -24,71 +25,95 @@ class DetailCustomerScreen extends StatefulWidget {
 
 class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
   int currentSlider = 0;
-final controller = Get.put(DetailCustomerController());
-  Future<UserModel> getUser() async {
-      var doc = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(widget.job.uid)
-          .get();
-      return UserModel.fromMap(doc.data()!);
+  final controller = Get.put(DetailCustomerController());
 
+  Future<UserModel> getUser() async {
+    var doc = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(widget.job.uid)
+        .get();
+    return UserModel.fromMap(doc.data()!);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: widget.job.status=="Pending" ? Padding(
-            padding: EdgeInsets.all(10.h),
-            child: BusyButton(
-              title: 'Mark as Complete',
-              isBusy: false,
-              onPressed: () async {
-                bool isConfirmed=false;
-                // await FirebaseFirestore.instance.collection("jobs").doc(widget.job.id).update({"status":"completed"});
-                await Get.defaultDialog(
-                    title: "",
-                    content: Padding(
-                  padding: EdgeInsets.all(12.w),
-                  child: Column(
-                    children: [
-                      Text("Are you sure you want to mark this job as complete?",textAlign: TextAlign.center,),
-                      SizedBox(height: 20.h,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(onPressed: () async {
-                            // await FirebaseFirestore.instance.collection("jobs").doc(widget.job.id).update({"status":"completed"});
-                            isConfirmed=true;
-                            Get.back();
-                          }, child: Text("Yes")),
-                          ElevatedButton(onPressed: () {
-                            Get.back();
-                          }, child: Text("No")),
-                        ],
-                      )
-                    ],
-                  ),
-                ));
-                if(isConfirmed){
-                        await Get.defaultDialog(
-                          title: "Rate your handyman",
-                            titlePadding: EdgeInsets.all(12.w),
-                            content: Column(
-                          children: [
-                            RatingBarWidget(
-                              onRatingChanged: (val) {
-                                controller.ratingBar = val;
-                              },
-                              itemCount: 5,
-                              size: 30.w,
+          bottomNavigationBar: widget.job.status == "Pending"
+              ? Padding(
+                  padding: EdgeInsets.all(10.h),
+                  child: BusyButton(
+                    title: 'Mark as Complete',
+                    isBusy: false,
+                    onPressed: () async {
+                      bool isConfirmed = false;
+                      // await FirebaseFirestore.instance.collection("jobs").doc(widget.job.id).update({"status":"completed"});
+                      await Get.defaultDialog(
+                          title: "",
+                          content: Padding(
+                            padding: EdgeInsets.all(12.w),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  "Are you sure you want to mark this job as complete?",
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () async {
+                                          // await FirebaseFirestore.instance.collection("jobs").doc(widget.job.id).update({"status":"completed"});
+                                          isConfirmed = true;
+                                          Get.back();
+                                        },
+                                        child: Text("Yes")),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Get.back();
+                                        },
+                                        child: Text("No")),
+                                  ],
+                                )
+                              ],
                             ),
-                          ],
-                        ));
+                          ));
+                      if (isConfirmed) {
+                        await Get.defaultDialog(
+                            title: "Rate Your Handyman",
+                            titlePadding: EdgeInsets.all(18.w),
+                            content: Column(
+                              children: [
+                                RatingBarWidget(
+                                  onRatingChanged: (val) {
+                                    controller.ratingBar = val;
+                                  },
+                                  itemCount: 5,
+                                  size: 30.w,
+                                ),
+                                15.verticalSpace,
+                                Padding(
+                                  padding:  EdgeInsets.all(12.w),
+                                  child: CustomTextField(controller: controller.review, validator: (val){}, label: "Review", hint: "Review"),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(12.w),
+                                  child: BusyButton(title: "Add Review", isBusy: false, onPressed: () async {
+                                    await controller.uploadReview();
+                                    Get.back();
+                                  }),
+                                )
+                              ],
+                            ));
                       }
                     },
-            ),
-          ):null,
+                  ),
+                )
+              : null,
           body: Container(
             height: 1.sh,
             child: SingleChildScrollView(
@@ -318,8 +343,8 @@ final controller = Get.put(DetailCustomerController());
                     child: Text(
                       widget.job.status,
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.sp,
+                        color: Colors.black,
+                        fontSize: 15.sp,
                       ),
                     ),
                   ),

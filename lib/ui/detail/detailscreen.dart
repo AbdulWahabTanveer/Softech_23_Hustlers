@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,12 +8,16 @@ import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 
 import '../../global_widgets/busy_button.dart';
-import '../../style/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import '../../global_widgets/custom_text_field.dart';
+import '../../models/bid_model.dart';
 import '../../models/user_model.dart';
+import '../../style/colors.dart';
+import 'dialogcontroller.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen(this.job, {Key? key}) : super(key: key);
+  final bool fromHandyman;
+  const DetailScreen(this.job, {Key? key, this.fromHandyman = false})
+      : super(key: key);
   final JobModel job;
 
   @override
@@ -21,27 +26,132 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   int currentSlider = 0;
+  GlobalKey<FormState> form = GlobalKey<FormState>();
+  DialogController con = Get.put(DialogController());
 
   Future<UserModel> getUser() async {
-      var doc = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(widget.job.uid)
-          .get();
-      return UserModel.fromMap(doc.data()!);
-
+    var doc = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(widget.job.uid)
+        .get();
+    return UserModel.fromMap(doc.data()!);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.all(10.h),
-            child: const BusyButton(
-              title: 'Book Now',
-              isBusy: false,
-            ),
-          ),
+          bottomNavigationBar: widget.fromHandyman
+              ? Padding(
+                  padding: EdgeInsets.all(10.h),
+                  child: BusyButton(
+                    title: 'Bid Now',
+                    isBusy: false,
+                    onPressed: () {
+                      TextEditingController newBid = TextEditingController();
+                      Get.defaultDialog(
+                          contentPadding: EdgeInsets.all(15.h),
+                          title: "Bid Now",
+                          content: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection("bids")
+                                  .where("jobId", isEqualTo: widget.job.id)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  double amount = 0;
+
+                                  snapshot.data!.docs.forEach((element) {
+                                    Bid bid = Bid.fromMap(element.data());
+                                    if (bid.handymanId ==
+                                        FirebaseAuth
+                                            .instance.currentUser!.uid) {
+                                      con.alreadyExist = true;
+                                    }
+                                    if (amount > bid.amount) {
+                                      amount = bid.amount;
+                                    }
+                                  });
+
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      10.verticalSpace,
+                                      Form(
+                                        key: form,
+                                        child: CustomTextField(
+                                          controller: newBid,
+                                          validator: (value) {
+                                            if (con.alreadyExist) {
+                                              return "You cannot Bid twice";
+                                            }
+                                            if (value == "") {
+                                              return "Bid cannot be empty";
+                                            }
+
+                                            if (double.parse(newBid.text) >
+                                                amount) {
+                                              return "Amount Cannot Be More than previous bid";
+                                            }
+
+                                            return null;
+                                          },
+                                          label: 'Bid Amount:',
+                                          hint: '10.0',
+                                        ),
+                                      ),
+                                      10.verticalSpace,
+                                      Text(
+                                        "Highest Bid:\$$amount",
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 16),
+                                      ),
+                                      10.verticalSpace,
+                                      Obx(
+                                        () => BusyButton(
+                                          title: 'Bid',
+                                          isBusy: con.loading.value,
+                                          onPressed: () async {
+                                            print("ssss");
+                                            if (form.currentState!.validate()) {
+                                              con.loading.value = true;
+
+                                              await FirebaseFirestore.instance
+                                                  .collection("bids")
+                                                  .add(Bid(
+                                                          accepted: false,
+                                                          amount: double.parse(
+                                                              newBid.text),
+                                                          customerId:
+                                                              widget.job.uid,
+                                                          handymanId:
+                                                              FirebaseAuth
+                                                                  .instance
+                                                                  .currentUser!
+                                                                  .uid,
+                                                          jobId: widget.job.id,
+                                                          rejected: false)
+                                                      .toMap());
+                                              con.loading.value = false;
+                                              Get.back();
+                                            }
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                }
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    color: primaryColor,
+                                  ),
+                                );
+                              }));
+                    },
+                  ),
+                )
+              : SizedBox(),
           body: Container(
             height: 1.sh,
             child: SingleChildScrollView(
@@ -171,25 +281,6 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       Positioned(
                         top: 30.h,
-                        right: 30.w,
-                        child: Container(
-                          height: 50.h,
-                          width: 50.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 30.h,
                         left: 30.w,
                         child: Container(
                           height: 50.h,
@@ -199,7 +290,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             color: Colors.white,
                           ),
                           child: IconButton(
-                            onPressed: (){
+                            onPressed: () {
                               Get.back();
                             },
                             icon: Icon(
@@ -275,11 +366,12 @@ class _DetailScreenState extends State<DetailScreen> {
                       borderRadius: BorderRadius.circular(20.h),
                       color: Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
-                    child: FutureBuilder<UserModel>(future: getUser(), builder: (context, snapshot) {
-                      if(snapshot.hasError){
-                        return Text("Error something went wrong");
-                      }
-                      else if(snapshot.hasData){
+                    child: FutureBuilder<UserModel>(
+                        future: getUser(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text("Error something went wrong");
+                          } else if (snapshot.hasData) {
                             return Row(
                               children: [
                                 Container(
@@ -304,32 +396,36 @@ class _DetailScreenState extends State<DetailScreen> {
                                           fontSize: 20.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Container(
-                                      height: 20.h,
-                                      child: ListView.builder(
-                                          itemCount: 5,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) {
-                                            return Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 3.h),
-                                              child: Icon(
-                                                Icons.star_border_outlined,
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                size: 15.w,
-                                              ),
-                                            );
-                                          }),
-                                    ),
+                                    widget.fromHandyman
+                                        ? SizedBox()
+                                        : Container(
+                                            height: 20.h,
+                                            child: ListView.builder(
+                                                itemCount: 5,
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 3.h),
+                                                    child: Icon(
+                                                      Icons
+                                                          .star_border_outlined,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      size: 15.w,
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
                                   ],
                                 )
                               ],
                             );
-                          }else{
+                          } else {
                             return Center(child: CircularProgressIndicator());
-                      }
+                          }
                         }),
                   ),
                   20.verticalSpace,

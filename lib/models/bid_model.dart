@@ -1,6 +1,7 @@
-class Bid{
+class Bid {
   final double amount;
   final String jobId;
+
   ///handyman
   final String handymanId;
   final String customerId;
