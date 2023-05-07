@@ -28,7 +28,7 @@ class HandyManProfile extends StatelessWidget {
         ),
         backgroundColor: Get.theme.primaryColor ==
             AppTheme.darkTheme.primaryColor
-            ? Colors.black
+            ? appBackgroundColor
             : null,
         elevation: 0,
       ),

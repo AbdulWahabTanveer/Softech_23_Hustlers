@@ -14,6 +14,7 @@ import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/ui/map/map.dart';
 import 'package:softech_hustlers/ui/profile_edit/profile_edit_controller.dart';
 
+import '../../style/app_theme.dart';
 import '../../style/textstyles.dart';
 
 class HandymanProfileEdit extends StatelessWidget {
@@ -28,6 +29,10 @@ class HandymanProfileEdit extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Edit profile"),
         elevation: 0,
+        backgroundColor: Get.theme.primaryColor ==
+            AppTheme.darkTheme.primaryColor
+            ? appBackgroundColor
+            : null,
       ),
       body: SingleChildScrollView(
         child: Form(

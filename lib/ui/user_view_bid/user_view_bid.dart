@@ -11,6 +11,8 @@ import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/models/user_model.dart';
 
 import '../../style/app_sizes.dart';
+import '../../style/app_theme.dart';
+import '../../style/textstyles.dart';
 import '../../utils/common_image_view.dart';
 
 class UserViewBidScreen extends StatelessWidget {
@@ -21,6 +23,10 @@ class UserViewBidScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('View Bids'),
+        backgroundColor: Get.theme.primaryColor ==
+            AppTheme.darkTheme.primaryColor
+            ? appBackgroundColor
+            : null,
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('bids')
