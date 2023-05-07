@@ -1,9 +1,10 @@
-class Bid{
+class Bid {
   final double amount;
   final String jobId;
+
   ///handyman
-  final double handymanId;
-  final double customerId;
+  final String handymanId;
+  final String customerId;
   final bool accepted;
   final bool rejected;
 
@@ -31,8 +32,8 @@ class Bid{
     return Bid(
       amount: map['amount'] as double,
       jobId: map['jobId'] as String,
-      handymanId: map['handymanId'] as double,
-      customerId: map['customerId'] as double,
+      handymanId: map['handymanId'] as String,
+      customerId: map['customerId'] as String,
       accepted: map['accepted'] as bool,
       rejected: map['rejected'] as bool,
     );

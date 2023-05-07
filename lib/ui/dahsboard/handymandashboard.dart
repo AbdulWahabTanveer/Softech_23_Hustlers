@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 import '../home/home_view.dart';
-import '../my_post/my_post.dart';
+import '../my_bids/my_post.dart';
 import '../profile/handyman_profile.dart';
 
 class HandyManDashBoard extends StatefulWidget {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:softech_hustlers/ui/my_job/my_job.dart';
 import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 import 'package:softech_hustlers/ui/userhome/userhome.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
-
-import '../my_post/my_post.dart';
 
 class UserDashBoard extends StatefulWidget {
   const UserDashBoard({Key? key}) : super(key: key);
@@ -20,9 +19,9 @@ class _UserDashBoardState extends State<UserDashBoard> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          const UserHomeScreen(),
-          const MyPost(),
-          const SizedBox(),
+          UserHomeScreen(),
+          MyJob(),
+          SizedBox(),
           HandyManProfile(),
         ],
       ),
