@@ -402,15 +402,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Container(
                                   height: 50.h,
                                   width: 50.w,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: Image.network(
-                                                  snapshot.data!.profileImgUrl??
-                                          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'
-                                          )
-                                              .image,
-                                          fit: BoxFit.cover)),
+                                  child: CommonImageView(url:snapshot.data!.profileImgUrl)
                                 ),
                                 10.horizontalSpace,
                                 Column(

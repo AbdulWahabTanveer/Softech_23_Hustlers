@@ -9,6 +9,7 @@ import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/ui/detail_customer/detail_customer_controller.dart';
+import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../style/app_theme.dart';
@@ -150,10 +151,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                             builder: (BuildContext context) {
                               return Container(
                                   width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(i))));
+                                  child: CommonImageView(url:i)
+                              );
                             },
                           );
                         }).toList(),
