@@ -255,18 +255,18 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                         top: 30.h,
                         left: 30.w,
                         child: Container(
-                          height: 50.h,
-                          width: 50.h,
+                          height: 34.h,
+                          width: 34.h,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
                           ),
                           child: IconButton(
                             onPressed: () => Get.back(),
-                            icon: const Icon(
+                            icon:  Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.black,
-                              size: 30,
+                              size: 16.sp,
                             ),
                           ),
                         ),
@@ -280,7 +280,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       'Description',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor ? Colors.white:Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -291,7 +292,7 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                         horizontal: kpHorizontalPadding),
                     child: Text(
                       widget.job.description,
-                      style: TextStyle(color: Colors.grey, fontSize: 15.sp),
+                      style: TextStyle(color:  Colors.grey, fontSize: 15.sp),
                     ),
                   ),
                   20.verticalSpace,
@@ -301,7 +302,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       'Timing',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor ? Colors.white:Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -322,7 +324,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       'Status',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor ? Colors.white:Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -334,7 +337,8 @@ class _DetailCustomerScreenState extends State<DetailCustomerScreen> {
                     child: Text(
                       widget.job.status,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Get.theme.primaryColor ==
+                            AppTheme.darkTheme.primaryColor ? Colors.grey:Colors.black,
                         fontSize: 15.sp,
                       ),
                     ),
