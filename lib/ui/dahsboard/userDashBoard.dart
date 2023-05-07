@@ -5,7 +5,7 @@ import 'package:softech_hustlers/ui/userhome/userhome.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 import '../user_view_bid/user_view_bid.dart';
-import '../user_view_bid.dart';
+
 
 class UserDashBoard extends StatefulWidget {
   const UserDashBoard({Key? key}) : super(key: key);

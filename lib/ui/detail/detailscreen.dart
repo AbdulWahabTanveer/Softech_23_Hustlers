@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
@@ -60,7 +61,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  double amount = 0;
+                                  double amount = widget.job.price;
 
                                   snapshot.data!.docs.forEach((element) {
                                     Bid bid = Bid.fromMap(element.data());
@@ -88,7 +89,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                             }
 
                                             if (double.parse(newBid.text) >
-                                                widget.job.price) {
+                                                amount) {
                                               return "Amount Cannot Be More than previous bid";
                                             }
 
