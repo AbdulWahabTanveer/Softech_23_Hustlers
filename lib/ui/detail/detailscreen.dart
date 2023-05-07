@@ -406,7 +406,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                           image: Image.network(
-                                                  snapshot.data!.profileImgUrl!)
+                                                  snapshot.data!.profileImgUrl??
+                                          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'
+                                          )
                                               .image,
                                           fit: BoxFit.cover)),
                                 ),
