@@ -39,7 +39,7 @@ class Bid {
       customerId: map['customerId'] ,
       accepted: map['accepted'] as bool,
       rejected: map['rejected'] as bool,
-      id: map['id']
+      id: map['id'] ?? ''
 
     );
   }

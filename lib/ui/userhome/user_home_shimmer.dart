@@ -12,89 +12,91 @@ class UserHomeShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding:  const EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
-      width: 1.sw,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          30.verticalSpace,
-          CustomShimmer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return SingleChildScrollView(
+      child: Container(
+        padding:  const EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
+        width: 1.sw,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            30.verticalSpace,
+            CustomShimmer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomShimmerBorderedContainer(
+                    child: Text(
+                      "Hello, UserName",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp),
+                    ),
+                  ),
+                  5.verticalSpace,
+                  CustomShimmerBorderedContainer(
+                    child: Text(
+                      "Welcome back!",
+                      style: TextStyle(color: Colors.grey, fontSize: 15.sp),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            20.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomShimmerBorderedContainer(
-                  child: Text(
-                    "Hello, UserName",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.sp),
-                  ),
-                ),
-                5.verticalSpace,
-                CustomShimmerBorderedContainer(
-                  child: Text(
-                    "Welcome back!",
-                    style: TextStyle(color: Colors.grey, fontSize: 15.sp),
-                  ),
-                ),
+                buildInfoContainer(context,
+                    title: "\$100",
+                    subtitle: "Total Spent",
+                    icon: Icons.price_change_outlined),
+                buildInfoContainer(context,
+                    title: '100',
+                    subtitle: "Total Booking",
+                    icon: Icons.request_page_outlined),
               ],
             ),
-          ),
-          20.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              buildInfoContainer(context,
-                  title: "\$100",
-                  subtitle: "Total Spent",
-                  icon: Icons.price_change_outlined),
-              buildInfoContainer(context,
-                  title: '100',
-                  subtitle: "Total Booking",
-                  icon: Icons.request_page_outlined),
-            ],
-          ),
-          20.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              buildInfoContainer(context,
-                  title: '100'.toString(),
-                  subtitle: "Jobs in Progress",
-                  icon: Icons.task),
-              buildInfoContainer(context,
-                  title: 100.toString(),
-                  subtitle: "Jobs Completed",
-                  icon: Icons.request_page_outlined),
-              // SizedBox(
-              //   width: 0.42.sw,
-              // )
-            ],
-          ),
-          20.verticalSpace,
-          _buildChart(context),
-          10.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Reviews",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "View all",
-                style: TextStyle(color: Colors.grey, fontSize: 15.sp),
-              )
-            ],
-          ),
-          10.verticalSpace,
-        ],
+            20.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildInfoContainer(context,
+                    title: '100'.toString(),
+                    subtitle: "Jobs in Progress",
+                    icon: Icons.task),
+                buildInfoContainer(context,
+                    title: 100.toString(),
+                    subtitle: "Jobs Completed",
+                    icon: Icons.request_page_outlined),
+                // SizedBox(
+                //   width: 0.42.sw,
+                // )
+              ],
+            ),
+            20.verticalSpace,
+            _buildChart(context),
+            10.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Reviews",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "View all",
+                  style: TextStyle(color: Colors.grey, fontSize: 15.sp),
+                )
+              ],
+            ),
+            10.verticalSpace,
+          ],
+        ),
       ),
     );
   }

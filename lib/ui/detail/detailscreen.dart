@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
@@ -60,15 +61,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  double amount = 0;
+                                  double amount = widget.job.price;
 
                                   snapshot.data!.docs.forEach((element) {
                                     Bid bid = Bid.fromMap(element.data());
-                                    if (bid.handymanId ==
-                                        FirebaseAuth
-                                            .instance.currentUser!.uid) {
-                                      con.alreadyExist = true;
-                                    }
+
                                     if (amount > bid.amount) {
                                       amount = bid.amount;
                                     }
@@ -117,10 +114,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                             print("ssss");
                                             if (form.currentState!.validate()) {
                                               con.loading.value = true;
-
+String uid=Uuid().v4();
                                               await FirebaseFirestore.instance
                                                   .collection("bids")
-                                                  .add(Bid(
+                                                  .doc(uid).set(Bid(
                                                           accepted: false,
                                                           amount: double.parse(
                                                               newBid.text),
@@ -221,7 +218,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 }),
                           )),
                       Positioned(
-                        bottom: -80.h,
+                        bottom: -85.h,
                         child: Material(
                           elevation: 5,
                           borderRadius: BorderRadius.circular(10.w),
