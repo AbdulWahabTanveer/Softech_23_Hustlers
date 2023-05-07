@@ -26,6 +26,10 @@ class HandyManProfile extends StatelessWidget {
             'Profile',
             style: appBarTextStyle,
           ),
+          backgroundColor: Get.theme.primaryColor ==
+              AppTheme.darkTheme.primaryColor
+              ? Colors.black
+              : null,
           elevation: 0,
           actions: [
             IconButton(

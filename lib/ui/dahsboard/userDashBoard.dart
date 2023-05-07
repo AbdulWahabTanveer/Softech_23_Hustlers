@@ -3,8 +3,6 @@ import 'package:softech_hustlers/ui/my_job/my_job.dart';
 import 'package:softech_hustlers/ui/profile/handyman_profile.dart';
 import 'package:softech_hustlers/ui/userhome/userhome.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
-
-import '../my_post/my_post.dart';
 import '../user_view_bid.dart';
 
 class UserDashBoard extends StatefulWidget {

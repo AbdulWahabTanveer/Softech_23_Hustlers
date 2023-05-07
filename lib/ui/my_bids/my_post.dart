@@ -12,6 +12,7 @@ import 'package:softech_hustlers/ui/detail/detailscreen.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import '../../models/bid_model.dart';
+import '../../style/app_theme.dart';
 
 class MyPost extends StatelessWidget {
   const MyPost({Key? key}) : super(key: key);
@@ -21,10 +22,15 @@ class MyPost extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
+        backgroundColor: Get.theme.primaryColor ==
+      AppTheme.darkTheme.primaryColor
+        ? Colors.black
+        : null,
           title: Text(
         "My Bids",
         style: appBarTextStyle,
-      )),
+      ),
+      ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('bids')
@@ -49,6 +55,7 @@ class MyPost extends StatelessWidget {
           builder: (context, snapshot) {
             print(snapshot.data == null ? "ddddD" : snapshot.data!.length);
             if (snapshot.hasData) {
+              print("dddddddd");
               return Column(
                 children: [
                   Expanded(

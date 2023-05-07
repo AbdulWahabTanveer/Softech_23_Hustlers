@@ -11,6 +11,7 @@ import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
 import '../../models/bid_model.dart';
 import '../../models/user_model.dart';
+import '../../style/app_theme.dart';
 import '../../style/colors.dart';
 import 'dialogcontroller.dart';
 
@@ -131,6 +132,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                   .currentUser!
                                                                   .uid,
                                                           jobId: widget.job.id,
+                                                          id: '',
                                                           rejected: false)
                                                       .toMap());
                                               con.loading.value = false;
@@ -310,7 +312,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Text(
                       'Description',
                       style: TextStyle(
-                          color: Colors.black,
+                          color:  Get.theme.primaryColor ==
+                      AppTheme.darkTheme.primaryColor
+                      ? Colors.white:
+                          Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -331,7 +336,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Text(
                       'Timing',
                       style: TextStyle(
-                          color: Colors.black,
+                          color:  Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white:
+                          Colors.black,
                           fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -352,19 +360,24 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Text(
                       'About Provider',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.sp,
+                          color:  Get.theme.primaryColor ==
+                              AppTheme.darkTheme.primaryColor
+                              ? Colors.white:
+                          Colors.black,                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  5.verticalSpace,
+                  10.verticalSpace,
                   Container(
                     padding: EdgeInsets.all(20.h),
                     margin:
                         EdgeInsets.symmetric(horizontal: kpHorizontalPadding),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.h),
-                      color: Theme.of(context).primaryColor.withOpacity(0.05),
+                      color:  Get.theme.primaryColor ==
+                          AppTheme.darkTheme.primaryColor
+                          ? Colors.white:
+                      Theme.of(context).primaryColor.withOpacity(0.05),
                     ),
                     child: FutureBuilder<UserModel>(
                         future: getUser(),
