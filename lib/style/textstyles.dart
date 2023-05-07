@@ -147,4 +147,4 @@ final black12w400 = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
-const appBackgroundColor=Colors.black;
+final appBackgroundColor=Colors.black.withOpacity(0.1);

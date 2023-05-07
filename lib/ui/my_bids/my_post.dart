@@ -24,7 +24,7 @@ class MyPost extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Get.theme.primaryColor ==
       AppTheme.darkTheme.primaryColor
-        ? Colors.black
+        ? appBackgroundColor
         : null,
           title: Text(
         "My Bids",

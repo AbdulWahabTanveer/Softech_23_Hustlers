@@ -15,6 +15,7 @@ import 'package:softech_hustlers/ui/detail_customer/detail_customer_screen.dart'
 import 'package:softech_hustlers/utils/common_image_view.dart';
 
 import '../../models/job_model.dart';
+import '../../style/app_theme.dart';
 import '../add_new_Job/add_new_job.dart';
 import 'my_job_controller.dart';
 
@@ -40,7 +41,12 @@ class MyJob extends StatelessWidget {
               })),
       extendBody: true,
       appBar: AppBar(
+          backgroundColor: Get.theme.primaryColor ==
+              AppTheme.darkTheme.primaryColor
+              ? Colors.black
+              : null,
           title: Text(
+
         "My Post Job",
         style: appBarTextStyle,
       )),
