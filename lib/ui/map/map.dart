@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
+import 'package:softech_hustlers/global_widgets/custom_text_field.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   GoogleMapController? _controller;
   LatLng _initialcameraposition =
       const LatLng(37.42796133580664, -122.085749655962);
+  TextEditingController _addressController = TextEditingController();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -131,28 +133,76 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             ),
           ),
         ),
-        body: GoogleMap(
-          markers: markers,
-          zoomControlsEnabled: false,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          onCameraMove: (CameraPosition position) {
-            markers = Set.from([
-              Marker(
-                markerId: const MarkerId('2'),
-                position: position.target,
-                infoWindow: const InfoWindow(title: 'Your Location'),
-              )
-            ]);
+        body: Stack(
+          children: [
+            GoogleMap(
+              markers: markers,
+              zoomControlsEnabled: false,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              onCameraMove: (CameraPosition position) {
+                markers = Set.from([
+                  Marker(
+                    markerId: const MarkerId('2'),
+                    position: position.target,
+                    infoWindow: const InfoWindow(title: 'Your Location'),
+                  )
+                ]);
 
-            _initialcameraposition =
-                LatLng(position.target.latitude, position.target.longitude);
-            setState(() {});
-          },
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller = controller;
-          },
+                _initialcameraposition =
+                    LatLng(position.target.latitude, position.target.longitude);
+                setState(() {});
+              },
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller = controller;
+              },
+            ),
+            Positioned(
+                top: 100.h,
+                left: 0.12.sw ,
+                right: 0.12.sw,
+                child: TextFormField(
+                  controller: _addressController,
+                  onChanged: (value) async {
+
+                    List<Location> placemarks = await locationFromAddress(value);
+                    _initialcameraposition=LatLng(placemarks[0].latitude,placemarks[0].longitude);
+                    _controller!.animateCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                            target: LatLng(placemarks[0].latitude, placemarks[0].longitude), zoom: 15)));
+
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(10.w, 10.h, 10.w, 10.h),
+                    isDense: false,
+                    fillColor:Colors.white,
+                    filled: true,
+                    hintText: "Search Location",
+                    suffixIcon: Icon(Icons.search,color: Theme.of(context).primaryColor,),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                    disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        borderSide: const BorderSide(width: 0, color: Colors.transparent)),
+                  ),
+
+                )),
+
+          ],
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),

@@ -382,24 +382,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           .start,
                                                                   children: [
                                                                     5.verticalSpace,
-                                                                    Container(
-                                                                      height:
-                                                                          20.h,
-                                                                      child: ListView.builder(
-                                                                          itemCount: 5,
-                                                                          shrinkWrap: true,
-                                                                          scrollDirection: Axis.horizontal,
-                                                                          itemBuilder: (context, index) {
-                                                                            return Padding(
-                                                                              padding: EdgeInsets.only(right: 3.h),
-                                                                              child: Icon(
-                                                                                Icons.star_border_outlined,
-                                                                                color: Colors.grey,
-                                                                                size: 15.w,
-                                                                              ),
-                                                                            );
-                                                                          }),
-                                                                    ),
                                                                     Text(
                                                                         homeController
                                                                             .currentJobs[
