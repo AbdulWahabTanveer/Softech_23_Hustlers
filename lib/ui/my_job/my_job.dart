@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
@@ -120,7 +121,7 @@ class MyJob extends StatelessWidget {
                                             ),
                                             10.verticalSpace,
                                             Text(
-                                              "${controller.myJobs[index].date}",
+                                              "${DateFormat.yMMMd().format(controller.myJobs[index].date)}",
                                               style: TextStyle(
                                                   fontSize: 10.sp,
                                                   fontWeight: FontWeight.w700),

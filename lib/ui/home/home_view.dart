@@ -198,17 +198,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ),
-                                      Material(
-                                        borderRadius:
-                                            BorderRadius.circular(10.w),
-                                        elevation: 5,
-                                        child: Container(
-                                          height: 50.h,
-                                          width: 50.h,
-                                          child: Icon(
-                                            Fontisto.search,
-                                            color:
-                                                Theme.of(context).primaryColor,
+                                      InkWell(
+                                        onTap: () {
+                                          homeController.searchLiveLocations();
+                                        },
+                                        child: Material(
+                                          borderRadius:
+                                              BorderRadius.circular(10.w),
+                                          elevation: 5,
+                                          child: Container(
+                                            height: 50.h,
+                                            width: 50.h,
+                                            child: Icon(
+                                              Fontisto.search,
+                                              color:
+                                                  Theme.of(context).primaryColor,
+                                            ),
                                           ),
                                         ),
                                       ),

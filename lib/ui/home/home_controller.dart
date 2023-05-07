@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../models/job_model.dart';
 import '../../services/user_service.dart';
+import '../live_jobs/live_jobs.dart';
 
 class HomeController extends GetxController {
   String? currentLocation;
@@ -119,5 +120,10 @@ class HomeController extends GetxController {
     });
 
     return jobs;
+  }
+
+  void searchLiveLocations() {
+    print(currentJobs.length);
+    Get.to(() => LiveJobs(jobModel: currentJobs,));
   }
 }
