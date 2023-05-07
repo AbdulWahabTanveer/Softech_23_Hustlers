@@ -244,7 +244,7 @@ class HandyManProfile extends StatelessWidget {
                         style: black16w700.copyWith(color:Get.theme.primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -261,7 +261,7 @@ class HandyManProfile extends StatelessWidget {
                         style: black16w700.copyWith(color:Get.theme.primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: SizedBox(
                         width: 60.w,
@@ -295,7 +295,7 @@ class HandyManProfile extends StatelessWidget {
                         style: black16w700.copyWith(color:Get.theme.primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -312,7 +312,7 @@ class HandyManProfile extends StatelessWidget {
                         style: black16w700.copyWith(color:Get.theme.primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
@@ -331,7 +331,7 @@ class HandyManProfile extends StatelessWidget {
                         style: black16w700.copyWith(color:Get.theme.primaryColor ==
                             AppTheme.darkTheme.primaryColor
                             ? Colors.white
-                            : null),
+                            : Colors.black),
                       ),
                     ),
                     Divider(
