@@ -13,7 +13,7 @@ class UserModel {
   final double? lng;
   final double? lat;
   final String? profileImgUrl;
-  final String? serviceCategory;
+  final List<dynamic>? serviceCategory;
   final String? id;
   List<ReviewModel> reviewModel;
 
@@ -67,7 +67,7 @@ class UserModel {
         lat: map['lat'],
         lng: map['lng'],
         profileImgUrl: map['profileImgUrl'],
-        serviceCategory: map['serviceCategory'],
+        serviceCategory: map['serviceCategory'] ?? [],
         id: map['id'],
         reviewModel: ((map['reviews'] ?? []) as List)
             .map((e) => ReviewModel.fromJson(e))

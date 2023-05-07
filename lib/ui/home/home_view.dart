@@ -62,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: MediaQuery.of(context)
                                                 .size
                                                 .width,
-                                            child:  CommonImageView(
-                                                    fit: BoxFit.cover,
-                                                    url: i.images[0]));
+                                            child: CommonImageView(
+                                                fit: BoxFit.cover,
+                                                url: i.images[0]));
                                       },
                                     );
                                   }).toList(),
@@ -208,8 +208,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: 50.h,
                                             child: Icon(
                                               Fontisto.search,
-                                              color:
-                                                  Theme.of(context).primaryColor,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
                                             ),
                                           ),
                                         ),
@@ -223,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               stream: FirebaseFirestore.instance
                                   .collection("jobs")
                                   .where("category",
-                                      isEqualTo:
+                                      whereIn:
                                           UserService.userModel.serviceCategory)
                                   .snapshots(),
                               builder: (context, snapshot) {
