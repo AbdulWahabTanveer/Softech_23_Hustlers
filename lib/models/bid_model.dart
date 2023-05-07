@@ -7,6 +7,7 @@ class Bid {
   final String customerId;
   final bool accepted;
   final bool rejected;
+  final String id;
 
   const Bid({
     required this.amount,
@@ -15,6 +16,7 @@ class Bid {
     required this.customerId,
     required this.accepted,
     required this.rejected,
+    required this.id
   });
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class Bid {
       'customerId': customerId,
       'accepted': accepted,
       'rejected': rejected,
+      'id' : id,
     };
   }
 
@@ -32,10 +35,12 @@ class Bid {
     return Bid(
       amount: map['amount'] as double,
       jobId: map['jobId'] as String,
-      handymanId: map['handymanId'] as String,
-      customerId: map['customerId'] as String,
+      handymanId: map['handymanId'] ,
+      customerId: map['customerId'] ,
       accepted: map['accepted'] as bool,
       rejected: map['rejected'] as bool,
+      id: map['id']
+
     );
   }
 }
