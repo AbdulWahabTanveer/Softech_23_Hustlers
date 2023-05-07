@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +9,8 @@ import 'package:intl/intl.dart';
 import 'package:softech_hustlers/global_widgets/busy_button.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
 import 'package:softech_hustlers/style/textstyles.dart';
-import 'package:softech_hustlers/ui/detail/detailscreen.dart';
 import 'package:softech_hustlers/ui/detail_customer/detail_customer_screen.dart';
 import 'package:softech_hustlers/utils/common_image_view.dart';
-
 import '../../models/job_model.dart';
 import '../../style/app_theme.dart';
 import '../add_new_Job/add_new_job.dart';
@@ -41,15 +38,15 @@ class MyJob extends StatelessWidget {
               })),
       extendBody: true,
       appBar: AppBar(
-          backgroundColor: Get.theme.primaryColor ==
-              AppTheme.darkTheme.primaryColor
-              ? Colors.black
-              : null,
-          title: Text(
-
-        "My Post Job",
-        style: appBarTextStyle,
-      )),
+        title: Text(
+          "My Post Job",
+          style: appBarTextStyle,
+        ),
+        backgroundColor:
+            Get.theme.primaryColor == AppTheme.darkTheme.primaryColor
+                ? appBackgroundColor
+                : null,
+      ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>?>>(
           stream: controller.getJobs(),
           builder: (_,
@@ -82,7 +79,9 @@ class MyJob extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Get.to(()=>DetailCustomerScreen(controller.myJobs[index],));
+                                  Get.to(() => DetailCustomerScreen(
+                                        controller.myJobs[index],
+                                      ));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(15.h),
@@ -100,7 +99,8 @@ class MyJob extends StatelessWidget {
                                         child: CommonImageView(
                                           height: 60.h,
                                           width: 60.h,
-                                          url: controller.myJobs[index].images[0],
+                                          url: controller
+                                              .myJobs[index].images[0],
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -140,7 +140,8 @@ class MyJob extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(

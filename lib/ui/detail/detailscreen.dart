@@ -221,12 +221,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                 }),
                           )),
                       Positioned(
-                        bottom: -85.h,
+                        bottom: -80.h,
                         child: Material(
                           elevation: 5,
                           borderRadius: BorderRadius.circular(10.w),
                           child: Container(
-                            height: 162.h,
+                            height: 130.h,
                             width: 0.8.sw,
                             padding: EdgeInsets.all(20.w),
                             child: Column(
@@ -255,27 +255,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                       color: primaryColor,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                10.verticalSpace,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Rating",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "0.0",
-                                      style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
-                                ),
                               ],
                             ),
                           ),
@@ -285,8 +264,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         top: 30.h,
                         left: 30.w,
                         child: Container(
-                          height: 50.h,
-                          width: 50.h,
+                          height: 34.h,
+                          width: 34.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
@@ -298,7 +277,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             icon: Icon(
                               Icons.arrow_back_ios_new,
                               color: Colors.black,
-                              size: 30,
+                              size: 16.sp,
                             ),
                           ),
                         ),
@@ -388,8 +367,8 @@ class _DetailScreenState extends State<DetailScreen> {
                             return Row(
                               children: [
                                 Container(
-                                  height: 60.h,
-                                  width: 60.h,
+                                  height: 50.h,
+                                  width: 50.w,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -406,7 +385,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       snapshot.data!.userName,
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 20.sp,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     widget.fromHandyman

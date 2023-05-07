@@ -31,16 +31,7 @@ class HandyManProfile extends StatelessWidget {
               ? Colors.black
               : null,
           elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const FaIcon(FontAwesomeIcons.info),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.edit),
-            ),
-          ]),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
