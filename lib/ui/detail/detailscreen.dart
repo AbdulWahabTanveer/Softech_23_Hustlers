@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:softech_hustlers/models/job_model.dart';
 import 'package:softech_hustlers/style/app_sizes.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../global_widgets/busy_button.dart';
 import '../../global_widgets/custom_text_field.dart';
@@ -63,11 +64,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
                                   snapshot.data!.docs.forEach((element) {
                                     Bid bid = Bid.fromMap(element.data());
-                                    if (bid.handymanId ==
-                                        FirebaseAuth
-                                            .instance.currentUser!.uid) {
-                                      con.alreadyExist = true;
-                                    }
+
                                     if (amount > bid.amount) {
                                       amount = bid.amount;
                                     }
@@ -91,7 +88,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                             }
 
                                             if (double.parse(newBid.text) >
-                                                amount) {
+                                                widget.job.price) {
                                               return "Amount Cannot Be More than previous bid";
                                             }
 
@@ -116,10 +113,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                             print("ssss");
                                             if (form.currentState!.validate()) {
                                               con.loading.value = true;
-
+String uid=Uuid().v4();
                                               await FirebaseFirestore.instance
                                                   .collection("bids")
-                                                  .add(Bid(
+                                                  .doc(uid).set(Bid(
                                                           accepted: false,
                                                           amount: double.parse(
                                                               newBid.text),
@@ -131,7 +128,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                   .currentUser!
                                                                   .uid,
                                                           jobId: widget.job.id,
-                                                          rejected: false)
+                                                          rejected: false, id: uid)
                                                       .toMap());
                                               con.loading.value = false;
                                               Get.back();

@@ -32,16 +32,21 @@ class MyPost extends StatelessWidget {
                   isEqualTo: FirebaseAuth.instance.currentUser!.uid)
               .snapshots()
               .asyncMap((event) async {
+                print('my post');
             List<Map> result = [];
             for (var element in event.docs) {
+              print('hi 1');
               Bid bid = Bid.fromMap(element.data());
+              print('kaeye 1');
               var data = await FirebaseFirestore.instance
                   .collection('jobs')
                   .doc(bid.jobId)
                   .get();
+              print('kaeye 1');
               JobModel job = JobModel.fromJson(data.data()!);
 
               result.add({"job": job, "bid": bid});
+              print('bye 1');
             }
 
             return result;
