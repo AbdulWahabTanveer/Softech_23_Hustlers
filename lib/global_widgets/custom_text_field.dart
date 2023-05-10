@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
               color: Get.theme.primaryColor ==
                   AppTheme.darkTheme.primaryColor
                   ? Colors.white
-                  : Theme.of(context).primaryColor.withOpacity(0.05),
+                  : Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold),
         ),
         5.verticalSpace,
